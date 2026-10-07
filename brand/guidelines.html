@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Brand Guidelines</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Figtree:wght@400;500;600&display=swap">
+<style>
+
+/* Layout: A3 and C1 side by side on every application, same row, so the choice is made on real uses. */
+:root{--bg:#F3F2EE;--fg:#1A1D23;--muted:#6B6E78;--rule:#D8D7D1;--panel:#FFFFFF;--accent:#343A46;--slate:#343A46;--slate-deep:#262B35;--butter:#EDD9A3;--paper:#F6F2E9;--ink:#1A1D23;--serif:"Libre Caslon Text",Georgia,serif;--sans:"Figtree",system-ui,sans-serif}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--bg:#17181C;--fg:#ECEAE3;--muted:#9A9DA6;--rule:#33363E;--panel:#1F2127;--accent:#EDD9A3;color-scheme:dark} }
+:root[data-theme="dark"]{--bg:#17181C;--fg:#ECEAE3;--muted:#9A9DA6;--rule:#33363E;--panel:#1F2127;--accent:#EDD9A3;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{width:min(1180px,100% - 2rem);margin-inline:auto}
+h1,h2{margin:0;text-wrap:balance} p{margin:0}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
+.intro{padding-block:3rem 2rem;border-bottom:1px solid var(--rule)}
+.intro h1{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:600;letter-spacing:-.01em}
+.intro p{margin-top:.8rem;max-width:64ch;color:var(--muted)}
+section{padding-block:3rem;border-bottom:1px solid var(--rule)}
+section>.wrap>h2{font-size:clamp(1.3rem,2.2vw,1.7rem);font-weight:600;margin-bottom:1.2rem}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
+.cell{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--panel);min-width:0}
+.cell .lab{font-size:.75rem;font-weight:600;color:var(--muted);padding:.6rem .9rem;border-bottom:1px solid var(--rule)}
+.s6{grid-column:span 6}.s12{grid-column:span 12}
+@media (max-width:900px){.s6{grid-column:span 12}}
+svg.rk{display:block;overflow:visible}
+.on-slate{background:var(--slate);color:var(--butter)} .on-paper{background:var(--paper);color:var(--slate)} .on-butter{background:var(--butter);color:var(--slate)}
+.app{display:grid;place-items:center;padding:1.8rem;min-height:320px}
+.lock{display:flex;align-items:center;gap:.6em;font-family:var(--serif);font-weight:400;line-height:1;white-space:nowrap}
+.lock.v{flex-direction:column;gap:.7em;font-size:1rem;text-align:center}
+.hoodie{width:260px;height:320px;position:relative}
+.hoodie .hood{position:absolute;left:50%;top:0;transform:translateX(-50%);width:132px;height:84px;background:var(--slate-deep);border-radius:66px 66px 0 0}
+.hoodie .arm{position:absolute;top:66px;width:48px;height:196px;background:var(--slate);border-radius:24px}
+.hoodie .arm.l{left:0}.hoodie .arm.r{right:0}
+.hoodie .torso{position:absolute;left:38px;right:38px;top:58px;bottom:0;background:var(--slate);border-radius:12px 12px 8px 8px;box-shadow:inset 0 10px 0 -6px var(--slate-deep)}
+.hoodie .print{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);color:var(--butter);display:flex;flex-direction:column;align-items:center;gap:.5rem;white-space:nowrap}
+.hoodie .print svg{width:110px;height:110px}
+.hoodie .print b{font-family:var(--serif);font-weight:400;font-size:.95rem;color:var(--paper)}
+.hoodie .print small{font-size:.45rem;letter-spacing:.2em;text-transform:uppercase;color:var(--butter)}
+.tote{width:190px;height:220px;background:var(--paper);border-radius:6px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.18);margin-top:34px}
+.tote::before,.tote::after{content:"";position:absolute;top:-34px;width:44px;height:50px;border:5px solid var(--slate);border-bottom:0;border-radius:22px 22px 0 0}
+.tote::before{left:34px}.tote::after{right:34px}
+.tote .lock{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);color:var(--slate)}
+.patch{width:240px;height:240px} .stamp{width:240px;height:240px;color:var(--slate);transform:rotate(-7deg);opacity:.9}
+.card{width:100%;max-width:330px;aspect-ratio:1.75;border-radius:6px;padding:1rem 1.1rem;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 30px rgba(0,0,0,.18);color:#F6F2E9}
+.card .who{font-family:var(--serif);font-size:1.05rem} .card small{display:block;font-size:.68rem;line-height:1.45;opacity:.85}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;padding:.9rem 1.2rem;font-size:.85rem;flex-wrap:wrap}
+.nav ul{display:flex;gap:1.2rem;list-style:none;margin:0;padding:0;font-weight:500} .nav .btn{border:1.5px solid currentColor;border-radius:999px;padding:.35rem .8rem;font-weight:600}
+.av{border-radius:50%;background:var(--slate);display:grid;place-items:center;color:var(--butter)}
+.notes{padding:1.4rem;font-size:.95rem;display:grid;grid-template-columns:1fr 1fr;gap:1.5rem} .notes h3{font-size:.8rem;font-weight:600;color:var(--muted);margin:0 0 .4rem} .notes ul{margin:0;padding-left:1.1rem}
+@media (max-width:760px){.notes{grid-template-columns:1fr}}
+
+.s3{grid-column:span 3}.s4{grid-column:span 4}.s8{grid-column:span 8}
+@media (max-width:900px){.s3,.s4,.s8{grid-column:span 12}}
+.stage{display:grid;place-items:center;padding:2rem;min-height:260px}
+.lock.h{font-size:clamp(1.2rem,3vw,2.4rem)} .lock.h svg{width:1.9em;height:1.9em}
+.lock.badge{flex-direction:column;gap:.6em;font-size:clamp(1rem,2.2vw,1.6rem);text-align:center} .lock.badge svg{width:5.4em;height:5.4em}
+.endorse{font-family:var(--sans);font-size:1rem;display:flex;align-items:center;gap:.6em} .endorse svg{width:2.2em;height:2.2em} .endorse b{font-family:var(--serif);font-weight:400;font-size:1.1em}
+.sw{display:grid;grid-template-columns:repeat(5,1fr)} .sw div{padding:1.6rem .9rem 1rem;font-size:.78rem;line-height:1.3;min-height:120px;display:flex;flex-direction:column;justify-content:flex-end} .sw b{display:block;font-weight:600} .sw small{opacity:.8}
+@media (max-width:700px){.sw{grid-template-columns:repeat(2,1fr)}}
+.spec{padding:1.2rem 1.4rem;display:grid;gap:1rem} .spec .row{display:grid;grid-template-columns:8rem 1fr;gap:1rem;align-items:baseline} .spec .k{font-size:.75rem;color:var(--muted);font-weight:600}
+.d1{font-family:var(--serif);font-size:1.9rem;letter-spacing:-.01em;line-height:1.1} .d2{font-family:var(--serif);font-size:1.25rem;font-style:italic;line-height:1.3} .d3{font-family:var(--sans);font-size:1rem;line-height:1.55} .d4{font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--muted)}
+@media (max-width:600px){.spec .row{grid-template-columns:1fr;gap:.2rem}}
+.article{padding:1.6rem 1.6rem 1.8rem;color:var(--ink)} .article .k{font-size:.72rem;font-weight:600;letter-spacing:.02em;opacity:.7} .article h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1.12;margin:.5rem 0 .6rem} .article .stand{font-family:var(--serif);font-style:italic;font-size:1.15rem;line-height:1.4;max-width:52ch;margin-bottom:1rem;color:#3B4050} .article p.b{font-family:var(--serif);font-size:1rem;line-height:1.55;max-width:56ch} .article p.b+p.b{margin-top:.6rem}
+.scene{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(180deg,var(--slate-deep),var(--slate) 70%);color:var(--paper)}
+.scene .ground{position:absolute;left:0;right:0;bottom:0;height:10%;background:var(--butter)}
+.scene .h{position:absolute;left:5%;top:9%;font-family:var(--serif);font-size:clamp(1rem,2.4vw,1.7rem);line-height:1.1;max-width:14ch}
+.scene .launch{position:absolute;left:0;right:0;bottom:10%;height:84%;color:var(--butter)}
+.scene .launch svg{width:100%;height:100%;overflow:visible;display:block}
+.scene .ship{transform-box:view-box}
+.scene .smoke{color:#F6F2E9}
+.scene .smoke circle{opacity:0;transform-box:fill-box;transform-origin:center}
+.scene .jet{opacity:0;transform-box:fill-box;transform-origin:50% 0}
+.scene .jetship{opacity:0;transform-box:fill-box;transform-origin:50% 0}
+.scene .column{opacity:0;transform-box:fill-box;transform-origin:50% 100%}
+@media (prefers-reduced-motion:no-preference){
+  .scene.play .ship{animation:lift 5s cubic-bezier(.7,0,.3,1) forwards}
+  .scene.play .ship .flame{transform-origin:100px 364px;animation:flame 5s ease-in-out forwards}
+  .scene.play .jet{animation:jet 5s ease-out forwards}
+  .scene.play .jetship{animation:jetship 5s ease-in-out forwards}
+  .scene.play .column{animation:column 5s ease-out forwards}
+  .scene.play .smoke circle{animation:roll 5s cubic-bezier(.2,.6,.3,1) forwards}
+  .scene.play .smoke .L{--dir:-1}.scene.play .smoke .R{--dir:1}
+  .scene.play .smoke .d1{animation-delay:.9s}.scene.play .smoke .d2{animation-delay:1.05s}.scene.play .smoke .d3{animation-delay:1.2s}.scene.play .smoke .d4{animation-delay:1.35s}.scene.play .smoke .d5{animation-delay:1.5s}
+  @keyframes lift{0%,24%{transform:translateY(0)}100%{transform:translateY(-1400px)}}
+  @keyframes flame{0%{transform:scaleY(.7)}24%{transform:scaleY(1.35)}100%{transform:scaleY(2);opacity:0}}
+  @keyframes jet{0%,18%{opacity:0;transform:scaleY(.1)}30%{opacity:1;transform:scaleY(1)}60%{opacity:.5;transform:scaleY(1.5)}100%{opacity:0;transform:scaleY(2)}}
+  @keyframes jetship{0%,16%{opacity:0;transform:scaleY(.2)}26%{opacity:1;transform:scaleY(1)}70%{opacity:.9;transform:scaleY(1.4)}100%{opacity:0;transform:scaleY(1.8)}}
+  @keyframes column{0%,20%{opacity:0;transform:scaleY(.05)}35%{opacity:.8;transform:scaleY(1)}100%{opacity:0;transform:scaleY(1.3)}}
+  @keyframes roll{0%{opacity:0;transform:translateX(0) scale(.2)}18%{opacity:.95}100%{opacity:0;transform:translateX(calc(var(--dir) * var(--dx,160px))) translateY(var(--dy,-10px)) scale(var(--sc,1.6))}}
+}
+
+.replay{all:unset;cursor:pointer;font-size:.75rem;font-weight:600;color:var(--muted);border:1px solid var(--rule);border-radius:999px;padding:.25rem .7rem} .replay:hover{color:var(--fg);border-color:var(--fg)}
+.cell .lab{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.traits{padding:1.4rem;display:grid;grid-template-columns:repeat(5,1fr);gap:1rem} .traits div{border-left:3px solid var(--butter);padding-left:.8rem} .traits b{display:block;font-family:var(--serif);font-weight:400;font-size:1.2rem} .traits span{font-size:.85rem;color:var(--muted)}
+@media (max-width:900px){.traits{grid-template-columns:repeat(2,1fr)}}
+.tl{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem} .tl div{padding:1.6rem 1.4rem;font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.7rem);line-height:1.15} .tl small{display:block;font-family:var(--sans);font-size:.8rem;margin-top:.9rem;opacity:.75}
+@media (max-width:700px){.tl{grid-template-columns:1fr}}
+.jump{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem} .jump a{font-size:.9rem;font-weight:500;color:var(--fg);text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:.4rem .9rem} .jump a:hover{border-color:var(--fg)}
+
+/* guidelines additions */
+.v{font-size:.75rem;color:var(--muted);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+section>.wrap>p.lead{color:var(--muted);max-width:72ch;margin:-.6rem 0 1.4rem;font-size:.98rem}
+.clear{display:grid;place-items:center;padding:3.6rem;min-height:380px;position:relative}
+.clear .box{position:relative;width:220px;height:220px}
+.clear .box svg{position:absolute;inset:0;width:100%;height:100%}
+.clear .box .cs{position:absolute;inset:-44px;border:1px dashed var(--butter);border-radius:4px;opacity:.9}
+.clear .box .x{position:absolute;left:0;top:-44px;height:44px;width:44px;border-left:1px dashed var(--butter);border-right:1px dashed var(--butter);opacity:.9}
+.clear .box .xl{position:absolute;left:50%;top:-34px;font-size:.75rem;color:var(--butter);transform:translateX(-50%);font-style:italic;font-family:var(--serif)}
+.sizes{display:flex;align-items:flex-end;gap:2rem;padding:2rem 1.4rem;flex-wrap:wrap}
+.sizes div{display:flex;flex-direction:column;align-items:center;gap:.6rem;font-size:.75rem;color:var(--muted)}
+.sizes svg{display:block}
+.dont{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem} @media(max-width:900px){.dont{grid-template-columns:1fr 1fr}}
+.dont .cell .stage{min-height:200px;padding:1.4rem} .dont .cell p{font-size:.85rem;padding:.8rem 1rem;border-top:1px solid var(--rule);margin:0} .dont .cell p b{color:#B5472F}
+.pairs{width:100%;border-collapse:collapse;font-size:.9rem} .pairs th,.pairs td{text-align:left;padding:.7rem .9rem;border-top:1px solid var(--rule);vertical-align:middle} .pairs th{font-size:.75rem;color:var(--muted);font-weight:600;border-top:0}
+.chip{display:inline-grid;place-items:center;width:5.4rem;height:2.1rem;border-radius:6px;font-family:var(--serif);font-size:1rem;border:1px solid rgba(0,0,0,.08)}
+.ok{color:#2E7D4F;font-weight:600} .no{color:#B5472F;font-weight:600} .meh{color:#8A6D1F;font-weight:600}
+.scale{padding:1.2rem 1.4rem;display:grid;gap:.9rem} .scale .row{display:grid;grid-template-columns:11rem 1fr;gap:1rem;align-items:baseline} .scale .k{font-size:.75rem;color:var(--muted);font-weight:600}
+@media (max-width:600px){.scale .row{grid-template-columns:1fr;gap:.2rem}}
+.t1{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.015em}
+.t2{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.1}
+.t3{font-family:var(--serif);font-size:1.3rem;line-height:1.3}
+.t4{font-family:var(--serif);font-size:1.05rem;line-height:1.55}
+.t5{font-family:var(--sans);font-size:1rem;line-height:1.55}
+.t6{font-family:var(--sans);font-size:.85rem;font-weight:500;line-height:1.4}
+.t7{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:1rem} @media(max-width:760px){.dd{grid-template-columns:1fr}}
+.dd .cell{padding:1.2rem 1.4rem} .dd h3{margin:0 0 .6rem;font-size:.8rem;font-weight:600;color:var(--muted)} .dd p{font-family:var(--serif);font-size:1.05rem;line-height:1.5;margin:0} .dd p+p{margin-top:.8rem;padding-top:.8rem;border-top:1px solid var(--rule)}
+.dd .cell.good{border-top:3px solid #2E7D4F} .dd .cell.bad{border-top:3px solid #B5472F}
+.lines{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem} @media(max-width:700px){.lines{grid-template-columns:1fr}}
+.lines .cell{padding:1.5rem 1.4rem} .lines .v{display:block;margin-bottom:.5rem} .lines .ln{font-family:var(--serif);font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.15} .lines .use{font-size:.85rem;margin-top:.8rem;opacity:.8}
+.assets{padding:1.2rem 1.4rem;font-size:.9rem} .assets table{width:100%;border-collapse:collapse} .assets td,.assets th{padding:.5rem .6rem;border-top:1px solid var(--rule);text-align:left;vertical-align:top} .assets th{border-top:0;font-size:.75rem;color:var(--muted)} .assets code{font-family:ui-monospace,Menlo,monospace;font-size:.82rem}
+.rule{padding:1.2rem 1.4rem;font-size:.95rem} .rule ul{margin:0;padding-left:1.1rem} .rule li+li{margin-top:.35rem}
+.hero.big{position:relative;aspect-ratio:21/9;overflow:hidden;background:linear-gradient(180deg,var(--slate-deep),var(--slate) 70%);color:var(--paper)}
+.hero.big .h{position:absolute;left:6%;top:16%;font-family:var(--serif);font-size:clamp(1.6rem,4vw,3.2rem);line-height:1.05;max-width:12ch}
+.hero.big .h small{display:block;font-family:var(--sans);font-size:.38em;line-height:1.4;margin-top:1em;opacity:.78;max-width:36ch;font-weight:400}
+.hero.big .ground{position:absolute;left:0;right:0;bottom:0;height:10%;background:var(--butter)}
+.hero.big .launch{position:absolute;right:9%;bottom:10%;width:9%} .hero.big .launch svg{width:100%;height:auto}
+.sigbox{padding:1.2rem 1.4rem;font-size:.85rem;color:var(--ink);line-height:1.5;background:#fff} .sigbox .line{display:flex;gap:.9rem;align-items:center;margin-top:.6rem;padding-top:.6rem;border-top:1px solid var(--rule)} .sigbox svg{width:40px;height:40px;color:var(--slate)} .sigbox i{font-family:var(--serif);color:var(--slate)}
+.toc{columns:2;gap:2rem;font-size:.92rem;padding:1.2rem 1.4rem} .toc a{color:var(--fg);text-decoration:none;display:block;padding:.2rem 0;border-bottom:1px solid var(--rule)} .toc a:hover{color:var(--accent)} .toc span{color:var(--muted);display:inline-block;width:2.4rem}
+@media(max-width:700px){.toc{columns:1}}
+</style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="e11" viewBox="0 0 200 440">
+    <g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M66 334 C58 305 49 265 48 215 C46 130 66 60 100 12 C134 60 154 130 152 215 C151 265 142 305 134 334"/>
+      <path d="M66 334 L88 334 M112 334 L134 334"/>
+      <path d="M58 118 C79 129 121 129 142 118"/>
+      <path d="M63 104 C81 114 119 114 137 104" stroke-dasharray="9 8" stroke-width="3.5"/>
+      <circle cx="100" cy="174" r="24" stroke-width="6"/>
+      <path d="M64.0 129.4 L61.3 147.3 L59.4 165.9 L58.2 185.1 L57.9 204.9 L58.1 219.5 L58.6 231.1 L59.4 242.4 L60.4 253.3 L61.6 263.8 L63.0 273.9 L64.6 283.6 L66.3 292.9 L68.1 301.7 L70.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/>
+      <path d="M136.0 129.4 L138.7 147.3 L140.6 165.9 L141.8 185.1 L142.1 204.9 L141.9 219.5 L141.4 231.1 L140.6 242.4 L139.6 253.3 L138.4 263.8 L137.0 273.9 L135.4 283.6 L133.7 292.9 L131.9 301.7 L130.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/>
+      <path d="M100 236 C90 268 86 316 100 358 C114 316 110 268 100 236 Z"/>
+      <path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/>
+      <path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/>
+            <path d="M66 334 L58 352 L89 352 M111 352 L142 352 L134 334"/>
+      <g class="flame"><path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/><path d="M90 366 C88 390 95 404 100 412 C105 404 112 390 110 366" stroke-width="4"/></g>
+    </g>
+  </symbol>
+<symbol id="e11halo" viewBox="0 0 200 440">
+    <g fill="currentColor" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M100 12 C66 60 46 130 48 215 C49 265 58 305 66 334 L134 334 C142 305 151 265 152 215 C154 130 134 60 100 12 Z"/>
+      <path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/>
+      <path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/>
+      <path d="M66 334 L58 352 L142 352 L134 334"/>
+      <path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/>
+    </g>
+  </symbol>
+<symbol id="gear12" viewBox="0 0 240 240">
+    <path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" d="M218.0 120.0 L217.5 130.2 L232.8 136.7 L226.0 162.0 L209.5 159.9 L204.9 169.0 L199.3 177.6 L209.3 190.8 L190.8 209.3 L177.6 199.3 L169.0 204.9 L159.9 209.5 L162.0 226.0 L136.7 232.8 L130.2 217.5 L120.0 218.0 L109.8 217.5 L103.3 232.8 L78.0 226.0 L80.1 209.5 L71.0 204.9 L62.4 199.3 L49.2 209.3 L30.7 190.8 L40.7 177.6 L35.1 169.0 L30.5 159.9 L14.0 162.0 L7.2 136.7 L22.5 130.2 L22.0 120.0 L22.5 109.8 L7.2 103.3 L14.0 78.0 L30.5 80.1 L35.1 71.0 L40.7 62.4 L30.7 49.2 L49.2 30.7 L62.4 40.7 L71.0 35.1 L80.1 30.5 L78.0 14.0 L103.3 7.2 L109.8 22.5 L120.0 22.0 L130.2 22.5 L136.7 7.2 L162.0 14.0 L159.9 30.5 L169.0 35.1 L177.6 40.7 L190.8 30.7 L209.3 49.2 L199.3 62.4 L204.9 71.0 L209.5 80.1 L226.0 78.0 L232.8 103.3 L217.5 109.8 Z"/>
+  </symbol>
+<symbol id="A-slate" viewBox="0 0 240 240">
+    <defs><path id="bp-slate" d="M120 120 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+    <use href="#gear12" width="240" height="240"/><circle cx="120" cy="120" r="84" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <text font-family="Figtree,sans-serif" font-weight="600" font-size="9" letter-spacing="3.4" fill="currentColor" opacity=".85"><textPath href="#bp-slate">0110 1010 0011 1101 0100 1011 0010 1110 0101 1001 0110 1010 0011 1101</textPath></text>
+    <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6"/>
+    <g transform="translate(78 36) scale(0.42)" style="color:#343A46"><use href="#e11halo" width="200" height="440"/></g>
+    <g transform="translate(78 36) scale(0.42)"><use href="#e11" width="200" height="440"/></g>
+  </symbol>
+<symbol id="A-paper" viewBox="0 0 240 240">
+    <defs><path id="bp-paper" d="M120 120 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+    <use href="#gear12" width="240" height="240"/><circle cx="120" cy="120" r="84" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <text font-family="Figtree,sans-serif" font-weight="600" font-size="9" letter-spacing="3.4" fill="currentColor" opacity=".85"><textPath href="#bp-paper">0110 1010 0011 1101 0100 1011 0010 1110 0101 1001 0110 1010 0011 1101</textPath></text>
+    <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6"/>
+    <g transform="translate(78 36) scale(0.42)" style="color:#F6F2E9"><use href="#e11halo" width="200" height="440"/></g>
+    <g transform="translate(78 36) scale(0.42)"><use href="#e11" width="200" height="440"/></g>
+  </symbol>
+<symbol id="A-butter" viewBox="0 0 240 240">
+    <defs><path id="bp-butter" d="M120 120 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+    <use href="#gear12" width="240" height="240"/><circle cx="120" cy="120" r="84" fill="none" stroke="currentColor" stroke-width="2.5"/>
+    <text font-family="Figtree,sans-serif" font-weight="600" font-size="9" letter-spacing="3.4" fill="currentColor" opacity=".85"><textPath href="#bp-butter">0110 1010 0011 1101 0100 1011 0010 1110 0101 1001 0110 1010 0011 1101</textPath></text>
+    <circle cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6"/>
+    <g transform="translate(78 36) scale(0.42)" style="color:#EDD9A3"><use href="#e11halo" width="200" height="440"/></g>
+    <g transform="translate(78 36) scale(0.42)"><use href="#e11" width="200" height="440"/></g>
+  </symbol>
+<symbol id="C-slate" viewBox="0 0 240 240">
+    <g fill="none" stroke="currentColor"><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(-30 120 120)" stroke-width="2.4"/><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(30 120 120)" stroke-width="2" stroke-dasharray="6 6"/></g>
+    <circle cx="214" cy="66" r="4" fill="currentColor"/>
+    <g transform="translate(72 30) scale(0.48)" style="color:#343A46"><use href="#e11halo" width="200" height="440"/></g>
+    <g transform="translate(72 30) scale(0.48)"><use href="#e11" width="200" height="440"/></g>
+  </symbol>
+<symbol id="C-paper" viewBox="0 0 240 240">
+    <g fill="none" stroke="currentColor"><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(-30 120 120)" stroke-width="2.4"/><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(30 120 120)" stroke-width="2" stroke-dasharray="6 6"/></g>
+    <circle cx="214" cy="66" r="4" fill="currentColor"/>
+    <g transform="translate(72 30) scale(0.48)" style="color:#F6F2E9"><use href="#e11halo" width="200" height="440"/></g>
+    <g transform="translate(72 30) scale(0.48)"><use href="#e11" width="200" height="440"/></g>
+  </symbol>
+<symbol id="C-butter" viewBox="0 0 240 240">
+    <g fill="none" stroke="currentColor"><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(-30 120 120)" stroke-width="2.4"/><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(30 120 120)" stroke-width="2" stroke-dasharray="6 6"/></g>
+    <circle cx="214" cy="66" r="4" fill="currentColor"/>
+    <g transform="translate(72 30) scale(0.48)" style="color:#EDD9A3"><use href="#e11halo" width="200" height="440"/></g>
+    <g transform="translate(72 30) scale(0.48)"><use href="#e11" width="200" height="440"/></g>
+  </symbol>
+</svg>
+<header class="intro"><div class="wrap"><p class="v">Unconventionalists Ltd · Brand guidelines · v1.0 · 7 October 2026</p><h1 style="margin-top:.4rem">How the brand works</h1><p>Everything needed to use the Unconventionalists identity consistently: the marks and how to place them, colour, type, voice, the one signature motion, the taglines and where each is used, and the files. Written for us first, and for anyone who makes something with the mark on it.</p>
+<div class="jump"><a href="#marks">1 Marks</a><a href="#usage">2 Using the mark</a><a href="#palette">3 Colour</a><a href="#type">4 Type</a><a href="#voice">5 Voice</a><a href="#liftoff">6 Motion</a><a href="#apps">7 Applications</a><a href="#lines">8 Taglines</a><a href="#templates">9 Templates</a><a href="#assets">10 Files</a></div></div></header>
+<section id="principles"><div class="wrap"><h2>In one paragraph</h2><div class="grid"><div class="cell s12"><div class="rule"><p style="font-family:var(--serif);font-size:1.15rem;line-height:1.55;max-width:70ch">Unconventionalists finds overlooked opportunities and builds companies that run themselves. The brand looks like the notebook of a careful experimenter: a hand-drawn rocket, two colours and a cream page, a serif for what we think and a sans for what we do. It is calm rather than loud, dry rather than cold, and it always says where the people are.</p></div></div></div></div></section><section id="marks"><div class="wrap"><h2>1. Marks</h2><p class="lead">Three assets: the rocket E11, the primary badge C1 (rocket with two orbits) and the secondary badge A3 (rocket in a gear). C1 is the identity. A3 is for fabric, stamps and print where a heavier, rounder device reads better. The rocket alone is for animation and large decorative use.</p><div class="grid">
+  <div class="cell s4"><div class="lab">Primary mark · C1</div><div class="stage on-slate"><svg class="rk" viewBox="0 0 240 240" style="width:220px;height:220px"><use href="#C-slate"/></svg></div></div>
+  <div class="cell s4"><div class="lab">Secondary mark · A3 (fabric, stamps, print)</div><div class="stage on-slate"><svg class="rk" viewBox="0 0 240 240" style="width:220px;height:220px"><use href="#A-slate"/></svg></div></div>
+  <div class="cell s4"><div class="lab">The rocket · E11</div><div class="stage on-slate"><svg class="rk" viewBox="0 0 200 440" style="height:220px;width:100px"><use href="#e11"/></svg></div></div>
+  <div class="cell s4"><div class="lab">C1 on paper</div><div class="stage on-paper"><svg class="rk" viewBox="0 0 240 240" style="width:200px;height:200px"><use href="#C-paper"/></svg></div></div>
+  <div class="cell s4"><div class="lab">C1 on butter</div><div class="stage on-butter"><svg class="rk" viewBox="0 0 240 240" style="width:200px;height:200px"><use href="#C-butter"/></svg></div></div>
+  <div class="cell s4"><div class="lab">A3 on paper</div><div class="stage on-paper"><svg class="rk" viewBox="0 0 240 240" style="width:200px;height:200px"><use href="#A-paper"/></svg></div></div>
+  <div class="cell s8"><div class="lab">Horizontal lockup</div><div class="stage on-paper"><div class="lock h"><svg class="rk" viewBox="0 0 240 240"><use href="#C-paper"/></svg>Unconventionalists</div></div></div>
+  <div class="cell s4"><div class="lab">Stacked lockup</div><div class="stage on-slate"><div class="lock badge"><svg class="rk" viewBox="0 0 240 240"><use href="#C-slate"/></svg>Unconventionalists</div></div></div>
+  <div class="cell s12"><div class="lab">Endorsement line · for ventures</div><div class="stage on-paper" style="min-height:140px"><div class="endorse"><svg class="rk" viewBox="0 0 240 240"><use href="#C-paper"/></svg>an <b>Unconventionalists</b> company</div></div></div>
+</div></div></section><section id="usage"><div class="wrap"><h2>2. Using the mark</h2><p class="lead">The rules that keep the mark looking like itself.</p><div class="grid">
+  <div class="cell s6"><div class="lab">Clear space · x = the porthole diameter (⅕ of the badge width)</div><div class="clear on-slate"><div class="box"><div class="cs"></div><div class="x" style="left:50%;transform:translateX(-50%)"></div><svg viewBox="0 0 240 240"><use href="#C-slate"/></svg><span class="xl">x</span></div></div></div>
+  <div class="cell s6"><div class="lab">Minimum sizes</div><div class="sizes on-paper">
+    <div><svg viewBox="0 0 240 240" style="width:120px;height:120px;color:#343A46"><use href="#C-paper"/></svg>C1 print · 20 mm</div>
+    <div><svg viewBox="0 0 240 240" style="width:64px;height:64px;color:#343A46"><use href="#C-paper"/></svg>C1 screen · 32 px</div>
+    <div><svg viewBox="0 0 240 240" style="width:120px;height:120px;color:#343A46"><use href="#A-paper"/></svg>A3 print · 30 mm</div>
+    <div><svg viewBox="0 0 240 240" style="width:72px;height:72px;color:#343A46"><use href="#A-paper"/></svg>A3 screen · 48 px</div>
+    <div><svg viewBox="0 0 200 440" style="width:22px;height:48px;color:#343A46"><use href="#e11"/></svg>Rocket · 16 px / 8 mm</div>
+  </div><p class="rule" style="padding-top:0;font-size:.85rem;color:var(--muted)">Below these sizes use the favicon version (simplified C1, thick orbits, no dashes). Under 16 px use the rocket silhouette only.</p></div>
+  <div class="cell s12"><div class="lab">Don't</div><div class="dont" style="padding:1rem">
+    <div class="cell"><div class="stage on-slate"><svg viewBox="0 0 240 240" style="width:150px;height:150px;transform:scaleX(1.4)"><use href="#C-slate"/></svg></div><p><b>Don't stretch</b> or squash. Scale proportionally only.</p></div>
+    <div class="cell"><div class="stage" style="background:#1E5AA8;color:#FFD400"><svg viewBox="0 0 240 240" style="width:150px;height:150px"><use href="#C-slate"/></svg></div><p><b>Don't recolour.</b> Slate, butter, paper, white or black only.</p></div>
+    <div class="cell"><div class="stage on-paper"><svg viewBox="0 0 240 240" style="width:150px;height:150px;transform:rotate(28deg)"><use href="#C-paper"/></svg></div><p><b>Don't rotate.</b> The rocket points up. Always.</p></div>
+    <div class="cell"><div class="stage on-slate"><svg viewBox="0 0 240 240" style="width:150px;height:150px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))"><use href="#C-slate"/></svg></div><p><b>Don't add effects.</b> No shadows, glows, gradients or outlines.</p></div>
+    <div class="cell"><div class="stage on-paper" style="grid-auto-flow:column;gap:0"><svg viewBox="0 0 240 240" style="width:130px;height:130px"><use href="#C-paper"/></svg><svg viewBox="0 0 200 440" style="width:36px;height:80px;color:#343A46"><use href="#e11"/></svg></div><p><b>Don't combine</b> the marks or add a second rocket.</p></div>
+    <div class="cell"><div class="stage" style="background:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2240%22><rect width=%2220%22 height=%2220%22 fill=%22%23999%22/><rect x=%2220%22 y=%2220%22 width=%2220%22 height=%2220%22 fill=%22%23999%22/><rect width=%2240%22 height=%2240%22 fill=%22%23bbb%22 opacity=%22.5%22/></svg>');color:#343A46"><svg viewBox="0 0 240 240" style="width:150px;height:150px"><use href="#C-paper"/></svg></div><p><b>Don't place on busy backgrounds.</b> Give it a flat field of slate or paper.</p></div>
+    <div class="cell"><div class="stage on-slate"><div class="lock" style="font-size:1.4rem;font-family:var(--sans);font-weight:700;letter-spacing:.1em;text-transform:uppercase"><svg class="rk" viewBox="0 0 240 240" style="width:1.9em;height:1.9em"><use href="#C-slate"/></svg>Unconventionalists</div></div><p><b>Don't reset the wordmark.</b> It is Libre Caslon Text 400, sentence case.</p></div>
+    <div class="cell"><div class="stage on-paper"><svg viewBox="0 0 240 240" style="width:150px;height:150px;color:#343A46"><g fill="none" stroke="currentColor"><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(-30 120 120)" stroke-width="2.4"/><ellipse cx="120" cy="120" rx="106" ry="42" transform="rotate(30 120 120)" stroke-width="2" stroke-dasharray="6 6"/></g><g transform="translate(72 30) scale(0.48)"><use href="#e11" width="200" height="440"/></g></svg></div><p><b>Don't let the orbits cross the rocket.</b> They pass behind it; use the supplied files.</p></div>
+  </div></div>
+</div></div></section><section id="palette"><div class="wrap"><h2>3. Colour</h2><p class="lead">Five colours, no more. Slate is the brand. Paper is where reading happens. Butter is the single accent and is rationed: the rocket, the ground line, one highlight per screen. Nothing neon, nothing saturated.</p><div class="grid"><div class="cell s12"><div class="sw">
+  <div style="background:#343A46;color:#F6F2E9"><b>Slate</b><small>#343A46 · hero ground, mark background</small></div>
+  <div style="background:#262B35;color:#F6F2E9"><b>Slate deep</b><small>#262B35 · gradients, footer</small></div>
+  <div style="background:#EDD9A3;color:#1A1D23"><b>Butter</b><small>#EDD9A3 · the one accent, rationed</small></div>
+  <div style="background:#F6F2E9;color:#1A1D23"><b>Paper</b><small>#F6F2E9 · reading ground</small></div>
+  <div style="background:#1A1D23;color:#F6F2E9"><b>Ink</b><small>#1A1D23 · body text on paper</small></div>
+</div></div></div></div></section><section id="pairing"><div class="wrap"><h2>Colour pairs</h2><p class="lead">The combinations that are allowed, and what each is for. Body text is never butter on paper or paper on butter.</p><div class="grid"><div class="cell s12"><table class="pairs">
+<tr><th>Ground</th><th>Mark / display text</th><th>Body text</th><th>Use</th></tr>
+<tr><td><span class="chip" style="background:#343A46;color:#EDD9A3">Aa</span> Slate</td><td>Butter <span class="ok">✓</span> · Paper <span class="ok">✓</span></td><td>Paper <span class="ok">✓ 11.9:1</span></td><td>Hero, footer, merch, dark surfaces</td></tr>
+<tr><td><span class="chip" style="background:#F6F2E9;color:#343A46">Aa</span> Paper</td><td>Slate <span class="ok">✓</span></td><td>Ink <span class="ok">✓ 15.3:1</span> · Slate <span class="ok">✓ 9.0:1</span></td><td>Reading: the log, About, documents</td></tr>
+<tr><td><span class="chip" style="background:#EDD9A3;color:#343A46">Aa</span> Butter</td><td>Slate <span class="ok">✓</span></td><td>Ink <span class="ok">✓ 13.0:1</span></td><td>Highlights, the ground band, stickers. Never a full page.</td></tr>
+<tr><td><span class="chip" style="background:#FFFFFF;color:#343A46">Aa</span> White</td><td>Slate <span class="ok">✓</span> · Black <span class="ok">✓</span></td><td>Ink <span class="ok">✓</span></td><td>Third-party contexts: LinkedIn, email, documents we don't control</td></tr>
+<tr><td><span class="chip" style="background:#343A46;color:#F6F2E9">Aa</span> Slate</td><td colspan="2">Butter as body text <span class="no">✗</span></td><td>Accent only; small butter text is hard to read at length</td></tr>
+<tr><td><span class="chip" style="background:#F6F2E9;color:#EDD9A3">Aa</span> Paper</td><td colspan="2">Butter on paper <span class="no">✗ 1.3:1</span></td><td>Never, at any size</td></tr>
+</table></div></div></div></section><section id="type"><div class="wrap"><h2>4. Type</h2><p class="lead">Two faces. Libre Caslon Text carries anything with a point of view: statements, headlines, the log. Figtree carries anything a person uses rather than reads: navigation, labels, tables, forms. Both are free Google Fonts; both are embedded on the site and must be outlined or embedded in any file that leaves us.</p><div class="grid">
+  <div class="cell s12"><div class="lab">Libre Caslon Text for statements and the log · Figtree for everything functional</div><div class="spec">
+    <div class="row"><span class="k">Display · Caslon 400</span><span class="d1">Companies that run themselves.</span></div>
+    <div class="row"><span class="k">Pull quote · Caslon italic</span><span class="d2">What would a company look like if software did the work from day one?</span></div>
+    <div class="row"><span class="k">Body UI · Figtree 400</span><span class="d3">Navigation, buttons, tables, captions, forms and anything a person uses rather than reads.</span></div>
+    <div class="row"><span class="k">Labels · Figtree 500</span><span class="d4">Entry 014 · Stage 2 of 5 · Validate</span></div>
+  </div></div>
+  <div class="cell s12"><div class="lab">Log entry treatment (Fix B) · whole entry in Caslon, labels in Figtree</div><div class="on-paper"><div class="article">
+    <p class="k">Entry 014 · Venture 02 · 3 March 2027</p>
+    <h3>Venture 02 failed validation at the pricing step.</h3>
+    <p class="stand">We put a landing page, a price and £300 of traffic in front of 1,840 people. Here is what the data said.</p>
+    <p class="b">41 signed up for the waiting list. None paid when asked. That is the test: interest is cheap, money is not.</p>
+    <p class="b">The scan that surfaced the idea stays in the record, with the evidence. The agents that built the page are already working on Venture 03.</p>
+  </div></div></div>
+</div></div></section><section id="typescale"><div class="wrap"><h2>Type scale</h2><p class="lead">Seven sizes cover everything. Headlines are set tight; reading text is set loose. One italic (Caslon) for pull quotes and the standfirst; no bold Caslon anywhere.</p><div class="grid"><div class="cell s12"><div class="scale">
+<div class="row"><span class="k">T1 · Hero · Caslon 400</span><span class="t1">Built so we can leave the room.</span></div>
+<div class="row"><span class="k">T2 · Section · Caslon 400</span><span class="t2">Every experiment is a company.</span></div>
+<div class="row"><span class="k">T3 · Entry title · Caslon 400</span><span class="t3">Venture 02 failed validation at the pricing step.</span></div>
+<div class="row"><span class="k">T4 · Reading · Caslon 400</span><span class="t4">41 signed up for the waiting list. None paid when asked. That is the test: interest is cheap, money is not.</span></div>
+<div class="row"><span class="k">T5 · UI body · Figtree 400</span><span class="t5">Navigation, buttons, tables, captions, forms and anything a person uses rather than reads.</span></div>
+<div class="row"><span class="k">T6 · Label · Figtree 500</span><span class="t6">Entry 014 · Stage 2 of 5 · Validate</span></div>
+<div class="row"><span class="k">T7 · Eyebrow · Figtree 600</span><span class="t7">An Unconventionalists company</span></div>
+</div></div></div></div></section><section id="voice"><div class="wrap"><h2>5. Personality and voice</h2><p class="lead">Experimental and lab-like. We write the way a careful person keeps a notebook: dated, specific, a little dry.</p><div class="grid">
+  <div class="cell s12"><div class="traits">
+    <div><b>Curious</b><span>not scattered: evidence over novelty</span></div>
+    <div><b>Methodical</b><span>not bureaucratic: five stages, one page each</span></div>
+    <div><b>Candid</b><span>not provocative: say what happened</span></div>
+    <div><b>Dry</b><span>not cold: understated humour, no sarcasm</span></div>
+    <div><b>Unconventional in method</b><span>not weird for its own sake</span></div>
+  </div></div>
+  <div class="cell s12"><div class="notes"><div><h3>How we write</h3><ul><li>Like a lab notebook: dated, specific, past tense. Say the number if there is one.</li><li>Name what the agents do; never invoke "AI" as magic. No "revolutionary", "disrupt", "unlock".</li><li>Always say where the humans are. It's a feature.</li><li>Sentence case everywhere. No exclamation marks.</li></ul></div><div><h3>Architecture</h3><ul><li>Endorsed: ventures keep their own names and identities.</li><li>Every venture carries the C1 mark and "an Unconventionalists company".</li><li>Shutting a venture down is an outcome of the pipeline, published like any other.</li></ul></div></div></div>
+</div></div></section><section id="voice2"><div class="wrap"><h2>Writing: do and don't</h2><div class="dd">
+<div class="cell good"><h3>Like this</h3><p>Venture 02 failed validation at the pricing step. 1,840 visitors, 41 sign-ups, no payments. The idea stays in the record with the evidence.</p><p>The agents scan 400 sources a week. A person reads the shortlist on Friday and picks one.</p><p>Running since March. Nobody has logged in since April.</p></div>
+<div class="cell bad"><h3>Not like this</h3><p>We're thrilled to announce our revolutionary AI-powered platform is disrupting the venture landscape!</p><p>Our cutting-edge autonomous agents unlock unprecedented value at scale.</p><p>No humans required. Zero headcount. The end of work.</p></div>
+</div><div class="grid" style="margin-top:1rem"><div class="cell s12"><div class="rule"><ul>
+<li><b>Say where the people are.</b> Every description of automation names the human decision that remains. It is the premise, and it is the reassurance.</li>
+<li><b>Never frame people as the problem.</b> No "minimal humans", "no humans", "headcount". The joke, when there is one, is about us.</li>
+<li><b>Numbers over adjectives.</b> If there is a figure, use it. If there isn't, say what happened.</li>
+<li><b>Past tense for the log, present tense for the company.</b> Entries record; pages describe.</li>
+<li><b>Sentence case everywhere</b>, including headlines and buttons. No exclamation marks. No emoji.</li>
+<li><b>Name the agents' work</b> ("the scan", "the build", "the validation"), never "the AI".</li>
+<li><b>Failures are published</b> in the same voice as successes. Shutting a venture is an outcome of the pipeline, not a secret.</li>
+</ul></div></div></div></div></section><section id="liftoff"><div class="wrap"><h2>6. Motion: the lift-off</h2><p class="lead">One signature movement, used once per visit on the dark hero. Smoke rolls along the floor and climbs; the rocket waits, then goes, leaving a short dashed jet. Everything else on the site moves quietly or not at all. Respects reduced-motion settings.</p><div class="grid"><div class="cell s12"><div class="lab">Website hero, dark · plays when scrolled into view and repeats every 8 seconds <button class="replay" type="button" data-replay="hero">Replay</button></div><div class="scene" id="hero"><div class="h">Built so we can leave the room.</div><div class="launch"><svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMax meet">
+          <g class="smoke" fill="none" stroke="currentColor" stroke-linecap="round">
+            <circle class="L d1" cx="304" cy="372" r="34" stroke-width="4" stroke-dasharray="11 8" style="--dx:80px;--dy:-30px;--sc:2"/>
+            <circle class="R d1" cx="336" cy="372" r="34" stroke-width="4" stroke-dasharray="11 8" style="--dx:80px;--dy:-30px;--sc:2"/>
+            <circle class="L d2" cx="296" cy="382" r="26" stroke-width="3.5" stroke-dasharray="9 7" style="--dx:170px;--dy:-14px;--sc:1.9"/>
+            <circle class="R d2" cx="344" cy="382" r="26" stroke-width="3.5" stroke-dasharray="9 7" style="--dx:170px;--dy:-14px;--sc:1.9"/>
+            <circle class="L d3" cx="310" cy="360" r="28" stroke-width="3.5" stroke-dasharray="9 7" style="--dx:40px;--dy:-70px;--sc:1.8"/>
+            <circle class="R d3" cx="330" cy="360" r="28" stroke-width="3.5" stroke-dasharray="9 7" style="--dx:40px;--dy:-70px;--sc:1.8"/>
+            <circle class="L d4" cx="290" cy="390" r="16" stroke-width="3" stroke-dasharray="7 6" style="--dx:260px;--sc:1.7"/>
+            <circle class="R d4" cx="350" cy="390" r="16" stroke-width="3" stroke-dasharray="7 6" style="--dx:260px;--sc:1.7"/>
+            <circle class="L d5" cx="320" cy="340" r="22" stroke-width="3" stroke-dasharray="8 6" style="--dx:10px;--dy:-110px;--sc:1.6"/>
+          </g>
+          <g class="ship" style="color:#EDD9A3"><g transform="translate(280 0) scale(0.4)"><use href="#e11" width="200" height="440" transform="translate(0 560)"/>
+            <g transform="translate(0 560)"><g class="jetship" fill="none" stroke="#F6F2E9" stroke-linecap="round" stroke-linejoin="round"><path d="M100 424 C92 460 88 490 92 524 M100 424 C108 460 112 490 108 524" stroke-width="8" stroke-dasharray="18 14"/></g></g></g></g>
+        </svg></div><div class="ground"></div></div></div></div></div></div></section><section id="apps"><div class="wrap"><h2>7. On real things</h2><p class="lead">Reference applications. Merch carries the mark and the four-word line; the site, LinkedIn and signatures carry the brand line over the description.</p><div class="grid">
+  <div class="cell s6"><div class="lab">Hoodie back · A3</div><div class="app on-paper" style="padding-top:3rem"><div class="hoodie"><div class="hood"></div><div class="arm l"></div><div class="arm r"></div><div class="torso"></div><div class="print"><svg viewBox="0 0 240 240"><use href="#A-slate"/></svg><b>Unconventionalists</b><small>Built so we can leave the room.</small></div></div></div></div>
+  <div class="cell s6"><div class="lab">Hoodie back · C1</div><div class="app on-paper" style="padding-top:3rem"><div class="hoodie"><div class="hood"></div><div class="arm l"></div><div class="arm r"></div><div class="torso"></div><div class="print"><svg viewBox="0 0 240 240"><use href="#C-slate"/></svg><b>Unconventionalists</b><small>Built so we can leave the room.</small></div></div></div></div>
+  <div class="cell s6"><div class="lab">Tote · logo over name</div><div class="app on-slate"><div class="tote"><div class="lock v"><svg class="rk" viewBox="0 0 240 240" style="width:5.2em;height:5.2em"><use href="#C-paper"/></svg>Unconventionalists</div></div></div></div>
+  <div class="cell s6"><div class="lab">Business card</div><div class="app on-butter"><div class="card on-slate"><svg class="rk" viewBox="0 0 240 240" style="width:54px;height:54px"><use href="#C-slate"/></svg><div><span class="who">Paul Cachia</span><small>Founder<br>hello@unconventionalists.com<br>unconventionalists.com</small></div></div></div></div>
+  <div class="cell s6"><div class="lab">Embroidered patch · A3</div><div class="app on-paper"><svg class="patch" viewBox="0 0 240 240" aria-hidden="true">
+        <defs><path id="pt-A" d="M120 120 m-100 0 a100 100 0 1 1 200 0"/><path id="pb-A" d="M120 120 m-100 0 a100 100 0 0 0 200 0"/></defs>
+        <circle cx="120" cy="120" r="118" fill="#343A46"/><circle cx="120" cy="120" r="118" fill="none" stroke="#EDD9A3" stroke-width="7"/><circle cx="120" cy="120" r="109" fill="none" stroke="#F6F2E9" stroke-width="1.2"/>
+        <text font-family="Figtree,sans-serif" font-weight="600" font-size="11.5" letter-spacing="3" fill="#F6F2E9"><textPath href="#pt-A" startOffset="50%" text-anchor="middle">UNCONVENTIONALISTS</textPath></text>
+        <text font-family="Figtree,sans-serif" font-weight="600" font-size="9.5" letter-spacing="2.4" fill="#EDD9A3"><textPath href="#pb-A" startOffset="50%" text-anchor="middle">BUSINESS AS UNUSUAL</textPath></text>
+        <g fill="#EDD9A3"><circle cx="22" cy="120" r="2.6"/><circle cx="218" cy="120" r="2.6"/></g>
+        <g transform="translate(40 40) scale(0.667)" style="color:#EDD9A3"><use href="#A-slate" width="240" height="240"/></g>
+      </svg></div></div>
+  <div class="cell s6"><div class="lab">Rubber stamp · A3, one colour</div><div class="app on-paper"><svg class="stamp" viewBox="0 0 240 240" aria-hidden="true">
+        <defs><path id="st-A" d="M120 120 m-100 0 a100 100 0 1 1 200 0"/><path id="sb-A" d="M120 120 m-100 0 a100 100 0 0 0 200 0"/></defs>
+        <g fill="none" stroke="currentColor"><circle cx="120" cy="120" r="116" stroke-width="4"/><circle cx="120" cy="120" r="108" stroke-width="1.5"/></g>
+        <text font-family="Figtree,sans-serif" font-weight="600" font-size="12" letter-spacing="3.2" fill="currentColor"><textPath href="#st-A" startOffset="50%" text-anchor="middle">UNCONVENTIONALISTS LTD</textPath></text>
+        <text font-family="Figtree,sans-serif" font-weight="600" font-size="10" letter-spacing="3" fill="currentColor"><textPath href="#sb-A" startOffset="50%" text-anchor="middle">BUSINESS AS UNUSUAL</textPath></text>
+        <g fill="currentColor"><circle cx="20" cy="120" r="3"/><circle cx="220" cy="120" r="3"/></g>
+        <g transform="translate(40 40) scale(0.667)"><use href="#A-paper" width="240" height="240"/></g>
+      </svg></div></div>
+  <div class="cell s12"><div class="lab">Website header</div><div class="on-slate" style="color:#F6F2E9"><div class="nav"><div class="lock" style="font-size:1rem"><svg class="rk" viewBox="0 0 240 240" style="width:2.2em;height:2.2em;color:#EDD9A3"><use href="#C-slate"/></svg>Unconventionalists</div><ul><li>Why</li><li>How it works</li><li>Ventures</li><li>Log</li></ul><span class="btn">Get in touch</span></div></div></div>
+  <div class="cell s12"><div class="lab">Avatar and favicon · 96, 48, 24px</div><div class="app on-paper" style="gap:1.4rem;grid-auto-flow:column"><div class="av" style="width:96px;height:96px"><svg viewBox="0 0 240 240" style="width:70px;height:70px"><use href="#C-slate"/></svg></div><div class="av" style="width:48px;height:48px;border-radius:10px"><svg viewBox="0 0 240 240" style="width:36px;height:36px"><use href="#C-slate"/></svg></div><div class="av" style="width:24px;height:24px;border-radius:5px"><svg viewBox="0 0 240 240" style="width:20px;height:20px"><use href="#C-slate"/></svg></div></div></div>
+</div></div></section><section id="lines"><div class="wrap"><h2>8. Taglines</h2><p class="lead">One brand line, one plain description, and three lines with specific jobs. Do not invent new ones for individual pieces; pick from these.</p><div class="lines">
+  <div class="cell on-slate"><span class="v" style="color:#EDD9A3">Brand line</span><div class="ln">Built so we can leave the room.</div><p class="use">Site hero, LinkedIn headline, email signature, decks. Usually sits over the description.</p></div>
+  <div class="cell on-paper"><span class="v">Plain description</span><div class="ln">Companies that run themselves.</div><p class="use">The second line under the brand line. Stands alone wherever wit is wrong: legal, investor documents, footers, metadata.</p></div>
+  <div class="cell on-butter"><span class="v">Merch line</span><div class="ln">Business as unusual.</div><p class="use">Stamp, patch, business card, stickers, hoodie if a short line is wanted. Anywhere four words win.</p></div>
+  <div class="cell on-slate"><span class="v" style="color:#EDD9A3">Manifesto line</span><div class="ln">The future of work is less of it.</div><p class="use">Heading of the ventures manifesto page and posters only. Not a signature, not a tote.</p></div>
+  <div class="cell on-paper"><span class="v">Section heading · ventures and log</span><div class="ln">Every experiment is a company.</div><p class="use">Heads the ventures/log section. Earns its keep each time a new company is published.</p></div>
+  <div class="cell on-paper"><span class="v">Body copy</span><div class="ln" style="font-size:1.2rem">Companies for people with other plans.</div><p class="use">A sentence of About-page copy, not a tagline. Use once.</p></div>
+</div></div></section><section id="templates"><div class="wrap"><h2>9. Templates</h2><p class="lead">The three pieces most likely to be made again: the hero, the endorsement for a venture, and the email signature.</p><div class="grid">
+  <div class="cell s12"><div class="lab">Hero · brand line over description</div><div class="hero big"><div class="h">Built so we can leave the room.<small>Companies that run themselves.</small></div><div class="launch"><svg viewBox="0 0 200 440" class="rk" style="color:#EDD9A3"><use href="#e11"/></svg></div><div class="ground"></div></div></div>
+  <div class="cell s6"><div class="lab">Venture endorsement · footer of every venture site</div><div class="stage on-paper" style="min-height:160px"><div class="endorse"><svg class="rk" viewBox="0 0 240 240"><use href="#C-paper"/></svg>an <b>Unconventionalists</b> company</div></div><p class="rule" style="font-size:.85rem;color:var(--muted)">Mark at 2.2em of the text size, text in Figtree with the name in Caslon. Links to unconventionalists.com. Ventures keep their own identity above this line.</p></div>
+  <div class="cell s6"><div class="lab">Email signature</div><div class="sigbox"><div>Thanks,<br><b>Paul</b></div><div class="line"><svg viewBox="0 0 240 240"><use href="#C-slate"/></svg><div><b>Paul Cachia</b> · Unconventionalists Ltd<br><i>Built so we can leave the room.</i><br>unconventionalists.com</div></div></div><p class="rule" style="font-size:.85rem;color:var(--muted)">Mark as a 40 px PNG on white, name in bold, tagline in italic. No other images, no quotes, no colour.</p></div>
+</div></div></section><section id="assets"><div class="wrap"><h2>10. Files</h2><p class="lead">Masters live in the website repository under <code>brand/</code> and are mirrored in Drive, 01 Brand &amp; Design. SVG is the master format; export PNG at the size needed.</p><div class="grid"><div class="cell s12"><div class="assets"><table>
+<tr><th>File</th><th>What</th><th>Use on</th></tr>
+<tr><td><code>badge-c1-slate.svg</code> / <code>-butter</code> / <code>-black</code></td><td>Primary mark, single colour, transparent</td><td>Paper, white, light grounds (slate); dark grounds (butter); one-colour print (black)</td></tr>
+<tr><td><code>badge-c1-on-slate.svg</code> / <code>-on-butter.svg</code></td><td>Primary mark on a filled square</td><td>Avatars, social, anywhere a background is needed</td></tr>
+<tr><td><code>badge-a3-slate.svg</code> / <code>-butter</code> / <code>-black</code> / <code>-on-slate</code></td><td>Secondary mark (gear)</td><td>Patches, stamps, hoodie, print</td></tr>
+<tr><td><code>rocket-e11-slate.svg</code> / <code>-butter</code> / <code>-white</code> / <code>-black</code></td><td>Rocket, standard weight</td><td>Animation, large decorative use, dividers</td></tr>
+<tr><td><code>rocket-e11-medium-slate.svg</code> / <code>-butter</code></td><td>Rocket, heavier strokes</td><td>Small sizes, embroidery, anything under 40 px</td></tr>
+<tr><td><code>favicon.svg</code></td><td>Simplified C1 on slate rounded square</td><td>Browser tab, app icon, under 32 px</td></tr>
+<tr><td>Fonts</td><td>Libre Caslon Text (400, 400 italic), Figtree (400, 500, 600)</td><td>Google Fonts, SIL Open Font License. Outline before sending artwork to printers.</td></tr>
+</table></div></div></div>
+<p class="lead" style="margin-top:1.4rem">Version 1.0, 7 October 2026. Changes to this document are recorded in the brand decisions log. Questions: hello@unconventionalists.com.</p></div></section><script>
+(function(){
+  var hero=document.getElementById('hero'); var timer=null;
+  function play(){ hero.classList.remove('play'); void hero.offsetWidth; hero.classList.add('play'); }
+  function loop(){ play(); timer=setInterval(play,8000); }
+  function stop(){ if(timer){clearInterval(timer);timer=null;} }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){ e.isIntersecting ? (timer||loop()) : stop(); }); },{threshold:.15}).observe(hero);
+  } else { loop(); }
+  setTimeout(function(){ if(!timer && hero.getBoundingClientRect().top < innerHeight) loop(); }, 500);
+  document.querySelectorAll('[data-replay]').forEach(function(b){ b.addEventListener('click',play); });
+})();
+</script>
+</body></html>

@@ -9,3 +9,15 @@ Type: Libre Caslon Text (statements, log entries) · Figtree (labels, navigation
 - favicon.svg — C1 simplified for 16-32px.
 
 Rules of thumb: one colour per use; never recolour outside the palette; keep clear space of at least half the rocket's width around any mark; use the medium-weight rocket below 60px; A3 is for fabric, stamps and print pieces, C1 for everything digital and the wordmark.
+
+## Guidelines
+
+`guidelines.html` is the brand guidelines document v1.0 (7 Oct 2026): marks, usage, colour, type, voice, motion, applications, taglines, templates. Served at https://unconventionalists.com/brand/guidelines.html (noindex).
+
+## Taglines (locked 7 Oct 2026)
+
+- Brand line: Built so we can leave the room.
+- Plain description: Companies that run themselves.
+- Merch line: Business as unusual.
+- Manifesto line: The future of work is less of it.
+- Ventures/log heading: Every experiment is a company.
