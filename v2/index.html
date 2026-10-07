@@ -85,29 +85,16 @@ a{color:inherit;text-decoration:none}
 :root{--lane:var(--gut)}
 main{position:relative}
 .trail{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible;mix-blend-mode:difference;color:#EDD9A3}
-.trail .track{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:6 7;opacity:.16}
-.trail .draw{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:6 7;opacity:.9;stroke-linecap:round}
-.trail .m{fill:none;stroke:#fff;stroke-width:12}
 .trail .seg{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:6 7;opacity:.85;stroke-linecap:round}
-.trail .seg.ex{stroke-width:2.5;stroke-dasharray:9 9;stroke:url(#exg)}
-body[data-trail="plot"] .trail .track{opacity:.1}
 section{position:relative;padding-block:clamp(4.5rem,10vw,8rem)}
 section.hero{padding:0}
 .eyebrow .num{position:absolute;left:calc(-1*var(--lane)/2);top:50%;width:30px;height:30px;margin:0;transform:translate(-50%,-50%);border-radius:50%;border:1.5px solid currentColor;background:var(--bg);display:grid;place-items:center;font-size:.78rem;opacity:1;transition:background .4s,color .4s,box-shadow .4s}
 section.lit .eyebrow .num{background:currentColor;box-shadow:0 0 0 5px var(--bg)}
 section.lit .eyebrow .num span{color:var(--bg)}
-body[data-trail="plot"] .sec-head.r{text-align:right}
-body[data-trail="plot"] .sec-head.r .eyebrow{flex-direction:row-reverse}
-body[data-trail="plot"] .sec-head.r h2{margin-left:auto}
-body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--lane)/2);transform:translate(50%,-50%)}
 @media (max-width:860px){
   [data-spine]{--lane:2.6rem}
   [data-spine] .wrap{width:calc(100% - var(--gut) - var(--lane));margin-left:var(--lane);margin-right:0}
   .eyebrow .num{width:26px;height:26px;font-size:.72rem}
-  body[data-trail="plot"] .sec-head.r{text-align:left}
-  body[data-trail="plot"] .sec-head.r .eyebrow{flex-direction:row}
-  body[data-trail="plot"] .sec-head.r h2{margin-left:0}
-  body[data-trail="plot"] .sec-head.r .eyebrow .num{right:auto;left:calc(-1*var(--lane)/2);transform:translate(-50%,-50%)}
 }
 .sec-head{margin-bottom:clamp(2rem,5vw,3.5rem);position:relative;z-index:4}
 .lead-col{position:relative;z-index:4}
@@ -180,6 +167,35 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 .endorse b{font-family:var(--serif);font-weight:400;font-size:1.05em}
 @media (max-width:860px){.cards{grid-template-columns:1fr}.card{min-height:0}.card.empty:nth-child(3){display:none}}
 
+ /* ---------- animated marks on the dark sections ---------- */
+.head-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:2rem 3rem;margin-bottom:clamp(2rem,5vw,3.5rem)}
+.orbit{margin-top:-1.5rem}
+.head-row .sec-head{margin-bottom:0}
+.orbit,.gear{color:var(--butter);justify-self:end}
+.orbit{width:min(360px,34vw)} .gear{width:min(250px,24vw)}
+.orbit svg,.gear svg{width:100%;height:auto;display:block;overflow:visible}
+.orbit .ring{fill:none;stroke:currentColor}
+.orbit .solid{stroke-width:2.4;stroke-dasharray:1 1;stroke-dashoffset:1}
+.orbit .dashed{stroke-width:2;stroke-dasharray:.011 .011;opacity:0}
+.orbit .dot{opacity:0;transition:opacity .5s 1.5s}
+.orbit.in .dot{opacity:1}
+.gear .g-teeth,.gear .g-bin{transform-box:view-box;transform-origin:120px 120px}
+@media (prefers-reduced-motion:no-preference){
+  .orbit.in .solid{animation:ringdraw 1.8s cubic-bezier(.6,0,.2,1) forwards}
+  .orbit.in .dashed{animation:fadein .9s .8s forwards,flow 4s linear infinite}
+  .gear.in .g-teeth{animation:spin 60s linear infinite}
+  .gear.in .g-bin{animation:spinr 48s linear infinite}
+  .gear.in .g-dash{animation:flow2 3s linear infinite}
+  @keyframes ringdraw{to{stroke-dashoffset:0}}
+  @keyframes fadein{to{opacity:1}}
+  @keyframes flow{to{stroke-dashoffset:-.022}}
+  @keyframes flow2{to{stroke-dashoffset:-11}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes spinr{to{transform:rotate(-360deg)}}
+}
+@media (prefers-reduced-motion:reduce){.orbit .solid{stroke-dashoffset:0}.orbit .dashed{opacity:1}.orbit .dot{opacity:1;transform:translate(211.8px,67px)}}
+@media (max-width:860px){.head-row{grid-template-columns:1fr;align-items:start}.orbit,.gear{justify-self:start}.orbit{width:200px}.gear{width:150px}}
+
 /* ---------- log: paper ---------- */
 .log{--bg:var(--paper);background:var(--paper)}
 .entries{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
@@ -224,6 +240,8 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 <path d="M64.0 129.4 L61.3 147.3 L59.4 165.9 L58.2 185.1 L57.9 204.9 L58.1 219.5 L58.6 231.1 L59.4 242.4 L60.4 253.3 L61.6 263.8 L63.0 273.9 L64.6 283.6 L66.3 292.9 L68.1 301.7 L70.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/><path d="M136.0 129.4 L138.7 147.3 L140.6 165.9 L141.8 185.1 L142.1 204.9 L141.9 219.5 L141.4 231.1 L140.6 242.4 L139.6 253.3 L138.4 263.8 L137.0 273.9 L135.4 283.6 L133.7 292.9 L131.9 301.7 L130.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/>
 <path d="M100 236 C90 268 86 316 100 358 C114 316 110 268 100 236 Z"/><path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/><path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/><path d="M66 334 L58 352 L89 352 M111 352 L142 352 L134 334"/>
 <g class="flame"><path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/><path d="M90 366 C88 390 95 404 100 412 C105 404 112 390 110 366" stroke-width="4"/></g></g></symbol>
+<symbol id="e11halo" viewBox="0 0 200 440"><g fill="currentColor" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M100 12 C66 60 46 130 48 215 C49 265 58 305 66 334 L134 334 C142 305 151 265 152 215 C154 130 134 60 100 12 Z"/><path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/><path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/><path d="M66 334 L58 352 L142 352 L134 334"/><path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/></g></symbol>
+<symbol id="gear12" viewBox="0 0 240 240"><path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" d="M218.0 120.0 L217.5 130.2 L232.8 136.7 L226.0 162.0 L209.5 159.9 L204.9 169.0 L199.3 177.6 L209.3 190.8 L190.8 209.3 L177.6 199.3 L169.0 204.9 L159.9 209.5 L162.0 226.0 L136.7 232.8 L130.2 217.5 L120.0 218.0 L109.8 217.5 L103.3 232.8 L78.0 226.0 L80.1 209.5 L71.0 204.9 L62.4 199.3 L49.2 209.3 L30.7 190.8 L40.7 177.6 L35.1 169.0 L30.5 159.9 L14.0 162.0 L7.2 136.7 L22.5 130.2 L22.0 120.0 L22.5 109.8 L7.2 103.3 L14.0 78.0 L30.5 80.1 L35.1 71.0 L40.7 62.4 L30.7 49.2 L49.2 30.7 L62.4 40.7 L71.0 35.1 L80.1 30.5 L78.0 14.0 L103.3 7.2 L109.8 22.5 L120.0 22.0 L130.2 22.5 L136.7 7.2 L162.0 14.0 L159.9 30.5 L169.0 35.1 L177.6 40.7 L190.8 30.7 L209.3 49.2 L199.3 62.4 L204.9 71.0 L209.5 80.1 L226.0 78.0 L232.8 103.3 L217.5 109.8 Z"/></symbol>
 <symbol id="e11m" viewBox="0 0 200 440"><g fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
 <path d="M66 334 C58 305 49 265 48 215 C46 130 66 60 100 12 C134 60 154 130 152 215 C151 265 142 305 134 334"/><path d="M66 334 L88 334 M112 334 L134 334"/><path d="M58 118 C79 129 121 129 142 118"/><circle cx="100" cy="174" r="24" stroke-width="10"/><path d="M100 236 C90 268 86 316 100 358 C114 316 110 268 100 236 Z"/><path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/><path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/><path d="M66 334 L58 352 L89 352 M111 352 L142 352 L134 334"/><path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/></g></symbol>
 </svg>
@@ -237,7 +255,7 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 </header>
 
 <main>
-<svg class="trail" id="trail" aria-hidden="true"><defs><linearGradient id="exg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EDD9A3"/><stop offset=".55" stop-color="#EDD9A3"/><stop offset="1" stop-color="#EDD9A3" stop-opacity="0"/></linearGradient><mask id="tm" maskUnits="userSpaceOnUse" x="0" y="0" width="10" height="10"><path class="m" id="tmask" d=""/></mask></defs><path class="track" id="track" d=""/><path class="draw" id="draw" d="" mask="url(#tm)"/><g id="segs"></g></svg>
+<svg class="trail" id="trail" aria-hidden="true"><g id="segs"></g></svg>
 <section class="hero" id="hero" aria-labelledby="h1">
   <div class="wrap">
     <div class="copy">
@@ -283,7 +301,7 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 
 <section class="how" id="how" aria-labelledby="h-how" data-spine>
   <div class="wrap">
-    <div class="sec-head r reveal">
+    <div class="sec-head reveal">
       <p class="eyebrow"><span class="num"><span>02</span></span> How it works</p>
       <h2 id="h-how">Five stages. A person signs off on two of them.</h2>
     </div>
@@ -303,9 +321,18 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 
 <section class="vent" id="ventures" aria-labelledby="h-vent" data-spine>
   <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow"><span class="num"><span>03</span></span> Ventures</p>
-      <h2 id="h-vent">Every experiment is a company.</h2>
+    <div class="head-row">
+      <div class="sec-head reveal">
+        <p class="eyebrow"><span class="num"><span>03</span></span> Ventures</p>
+        <h2 id="h-vent">Every experiment is a company.</h2>
+      </div>
+      <div class="orbit" id="orbit" aria-hidden="true"><svg viewBox="0 0 240 240">
+        <path class="ring dashed" pathLength="1" d="M28.2 67 A106 42 30 1 0 211.8 173 A106 42 30 1 0 28.2 67"/>
+        <path class="ring solid" id="orb" pathLength="1" d="M28.2 173 A106 42 -30 1 0 211.8 67 A106 42 -30 1 0 28.2 173"/>
+        <circle class="dot" r="4.5" fill="currentColor"><animateMotion id="orbAnim" dur="16s" repeatCount="indefinite" begin="indefinite"><mpath href="#orb"/></animateMotion></circle>
+        <g transform="translate(72 30) scale(0.48)" style="color:#343A46"><use href="#e11halo" width="200" height="440"/></g>
+        <g transform="translate(72 30) scale(0.48)"><use href="#e11" width="200" height="440"/></g>
+      </svg></div>
     </div>
     <ol class="cards">
       <li class="card reveal"><span class="stampy">Stage 2 · Decide</span><span class="k">Venture 01</span><h3>Name withheld until launch.</h3><p>Chosen from fourteen candidates. It has a buyer who already pays someone, badly, for a worse answer. Budget £300; test: a page, a price, two weeks.</p><div class="cf"><span>October 2026</span><a href="#log">Entry 002 →</a></div></li>
@@ -318,7 +345,7 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 
 <section class="log" id="log" aria-labelledby="h-log" data-spine>
   <div class="wrap">
-    <div class="sec-head r reveal">
+    <div class="sec-head reveal">
       <p class="eyebrow"><span class="num"><span>04</span></span> Log</p>
       <h2 id="h-log">What happened, written down.</h2>
     </div>
@@ -332,9 +359,20 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
 
 <section class="about" id="about" aria-labelledby="h-about" data-spine>
   <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="eyebrow"><span class="num"><span>05</span></span> About</p>
-      <h2 id="h-about">Who is in the room.</h2>
+    <div class="head-row">
+      <div class="sec-head reveal">
+        <p class="eyebrow"><span class="num"><span>05</span></span> About</p>
+        <h2 id="h-about">Who is in the room.</h2>
+      </div>
+      <div class="gear" id="gear" aria-hidden="true"><svg viewBox="0 0 240 240">
+        <defs><path id="bp" d="M120 120 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+        <g class="g-teeth"><use href="#gear12" width="240" height="240"/></g>
+        <circle cx="120" cy="120" r="84" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <text class="g-bin" font-family="Figtree,sans-serif" font-weight="600" font-size="9" letter-spacing="3.4" fill="currentColor" opacity=".85"><textPath href="#bp">0110 1010 0011 1101 0100 1011 0010 1110 0101 1001 0110 1010 0011 1101</textPath></text>
+        <circle class="g-dash" cx="120" cy="120" r="62" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6"/>
+        <g transform="translate(78 36) scale(0.42)" style="color:#262B35"><use href="#e11halo" width="200" height="440"/></g>
+        <g transform="translate(78 36) scale(0.42)"><use href="#e11" width="200" height="440"/></g>
+      </svg></div>
     </div>
     <ul class="people">
       <li class="person reveal"><h3>Paul Cachia</h3><p class="role">Founder</p><p>Decides what we pursue and when to stop. Twenty years selling software to banks and insurers, which is where many of the overlooked problems are.</p></li>
@@ -369,60 +407,24 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
   document.getElementById('ship').addEventListener('click',function(e){e.stopPropagation();play()});
   document.getElementById('cue').addEventListener('click',function(){if(!launched)play()});
 
-  /* ---- the trail: one dashed path from the rocket's flame through every section number ---- */
-  var mainEl=document.querySelector('main'), trail=document.getElementById('trail'), track=document.getElementById('track'), draw=document.getElementById('draw'), tmask=document.getElementById('tmask'), tmaskEl=document.getElementById('tm');
+  /* ---- the trail: short dashed drops into each section number, drawn as you arrive ---- */
+  var mainEl=document.querySelector('main'), trail=document.getElementById('trail'), segsEl=document.getElementById('segs');
   var sections=[].slice.call(document.querySelectorAll('[data-spine]'));
   var traj=document.getElementById('traj'), stages=document.getElementById('stages');
-  var N=700, ys=[], L=0, nodes=[], mainTop=0, lastStart=null, W=0, segs=[], segsEl=document.getElementById('segs');
-  var mode=(location.search.match(/trail=(\w+)/)||[])[1]||'quiet'; document.body.dataset.trail=mode;
-  function corner(d,a,p,b,r){ /* rounded corner at p between a->p and p->b */
-    var v1x=p.x-a.x,v1y=p.y-a.y,l1=Math.hypot(v1x,v1y),v2x=b.x-p.x,v2y=b.y-p.y,l2=Math.hypot(v2x,v2y);
-    var t=Math.min(r,l1/2,l2/2); var q1={x:p.x-v1x/l1*t,y:p.y-v1y/l1*t},q2={x:p.x+v2x/l2*t,y:p.y+v2y/l2*t};
-    return d+' L'+q1.x.toFixed(1)+' '+q1.y.toFixed(1)+' Q'+p.x.toFixed(1)+' '+p.y.toFixed(1)+' '+q2.x.toFixed(1)+' '+q2.y.toFixed(1);
-  }
+  var segs=[], mainTop=0;
   function clamp(v){return v<0?0:v>1?1:v}
   function rel(r,m){return {x:r.left-m.left+r.width/2,y:r.top-m.top+r.height/2}}
   function layout(){
     var mob=matchMedia('(max-width:860px)').matches;
-    var m=mainEl.getBoundingClientRect(); W=mainEl.offsetWidth; var H=mainEl.offsetHeight; mainTop=m.top+scrollY;
-    trail.setAttribute('viewBox','0 0 '+W+' '+H); tmaskEl.setAttribute('width',W); tmaskEl.setAttribute('height',H);
-    var start;
-    if(scene.classList.contains('play') && lastStart){start=lastStart}
-    else{var u=scene.querySelector('use'); var ur=u.getBoundingClientRect(); start={x:ur.left-m.left+ur.width/2,y:ur.bottom-m.top-ur.height*0.06}; lastStart=start}
-    var pts=[{p:start}];
-    nodes=[];
+    var m=mainEl.getBoundingClientRect(); var W=mainEl.offsetWidth, H=mainEl.offsetHeight; mainTop=m.top+scrollY;
+    trail.setAttribute('viewBox','0 0 '+W+' '+H);
+    segsEl.innerHTML=''; segs=[];
+    function seg(x1,y1,x2,y2,node){var el=document.createElementNS('http://www.w3.org/2000/svg','path'); el.setAttribute('class','seg'); el.setAttribute('d','M'+x1.toFixed(1)+' '+y1.toFixed(1)); segsEl.appendChild(el); segs.push({el:el,x0:x1,y0:y1,x1:x2,y1:y2,node:node,p:-1})}
     sections.forEach(function(sec){
-      var n=sec.querySelector('.eyebrow .num'); var p=rel(n.getBoundingClientRect(),m);
-      nodes.push({el:sec,p:p}); pts.push({p:p,node:true});
-      if(mob && sec.id==='how'){[].slice.call(sec.querySelectorAll('.stage .node')).forEach(function(nd){var q=rel(nd.getBoundingClientRect(),m);nodes.push({el:nd.parentNode,p:q});pts.push({p:q,node:true})})}
-      var r=sec.getBoundingClientRect(); var pad=parseFloat(getComputedStyle(sec).paddingBottom);
-      pts.push({p:{x:p.x,y:r.bottom-m.top-pad*0.5},exit:true});
+      var r=sec.getBoundingClientRect(); var n=sec.querySelector('.eyebrow .num'); var p=rel(n.getBoundingClientRect(),m);
+      seg(p.x,r.top-m.top,p.x,p.y-(mob?13:15),{el:sec,type:'lit'});
+      if(mob && sec.id==='how'){var nds=[].slice.call(sec.querySelectorAll('.stage .node')); if(nds.length>1){var q1=rel(nds[0].getBoundingClientRect(),m),q2=rel(nds[nds.length-1].getBoundingClientRect(),m); seg(q1.x,q1.y,q2.x,q2.y,null); nds.forEach(function(nd){var q=rel(nd.getBoundingClientRect(),m); segs.push({el:null,y0:q.y,y1:q.y,node:{el:nd.parentNode,type:'in'}})})}}
     });
-    pts.sort(function(a,b){return a.p.y-b.p.y});
-    segsEl.innerHTML=''; segs=[]; L=0;
-    if(mode==='plot'){
-      var d='M'+pts[0].p.x.toFixed(1)+' '+pts[0].p.y.toFixed(1);
-      for(var i=1;i<pts.length;i++){
-        var a=pts[i-1].p,b=pts[i].p;
-        if(Math.abs(a.x-b.x)<2){ d+=' L'+b.x.toFixed(1)+' '+b.y.toFixed(1); }
-        else { var st=Math.min(34,(b.y-a.y)/3); var p1={x:a.x,y:a.y+st},p2={x:b.x,y:b.y-st};
-          d=corner(d,a,p1,p2,26); d=corner(d,p1,p2,b,26); d+=' L'+b.x.toFixed(1)+' '+b.y.toFixed(1); }
-      }
-      track.setAttribute('d',d); draw.setAttribute('d',d); tmask.setAttribute('d',d);
-      L=draw.getTotalLength(); tmask.style.strokeDasharray=L+' '+L;
-      ys=[]; var best=nodes.map(function(){return {d:1e12,s:0}});
-      for(var k=0;k<=N;k++){var q=draw.getPointAtLength(k*L/N); ys.push(q.y);
-        for(var j=0;j<nodes.length;j++){var dx=q.x-nodes[j].p.x,dy=q.y-nodes[j].p.y,dd=dx*dx+dy*dy; if(dd<best[j].d){best[j].d=dd;best[j].s=k*L/N}}}
-      nodes.forEach(function(n,j){n.s=best[j].s});
-    } else {
-      track.setAttribute('d',''); draw.setAttribute('d',''); tmask.setAttribute('d','');
-      function seg(x1,y1,x2,y2,cls,node){var el=document.createElementNS('http://www.w3.org/2000/svg','path'); el.setAttribute('class','seg'+(cls?' '+cls:'')); el.setAttribute('d','M'+x1.toFixed(1)+' '+y1.toFixed(1)); segsEl.appendChild(el); segs.push({el:el,x0:x1,y0:y1,x1:x2,y1:y2,node:node,p:-1})}
-      sections.forEach(function(sec){
-        var r=sec.getBoundingClientRect(); var n=sec.querySelector('.eyebrow .num'); var p=rel(n.getBoundingClientRect(),m);
-        seg(p.x,r.top-m.top,p.x,p.y-(mob?13:15),'',{el:sec,type:'lit'});
-        if(mob && sec.id==='how'){var nds=[].slice.call(sec.querySelectorAll('.stage .node')); if(nds.length>1){var q1=rel(nds[0].getBoundingClientRect(),m),q2=rel(nds[nds.length-1].getBoundingClientRect(),m); seg(q1.x,q1.y,q2.x,q2.y,''); nds.forEach(function(nd){var q=rel(nd.getBoundingClientRect(),m); segs.push({el:null,y0:q.y,y1:q.y,node:{el:nd.parentNode,type:'in'}})})}}
-      });
-    }
   }
   var ticking=false;
   function update(){
@@ -431,17 +433,9 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
     top.classList.toggle('scrolled',y>8);
     if(!launched && y>24) play();
     var probe=y+vh*0.62-mainTop;
-    if(mode==='plot' && L>0){
-      var lo=0, hi=N;
-      while(lo<hi){var mid=(lo+hi+1)>>1; if(ys[mid]<=probe) lo=mid; else hi=mid-1}
-      var sLen=(ys[0]>probe)?0:lo*L/N;
-      tmask.style.strokeDashoffset=(L-sLen);
-      nodes.forEach(function(n){var on=sLen>=n.s-1; if(n.el.classList.contains('stage')) n.el.classList.toggle('in',on); else n.el.classList.toggle('lit',on)});
-    } else if(mode!=='plot'){
-      segs.forEach(function(g){var p=g.y1>g.y0?clamp((probe-g.y0)/(g.y1-g.y0)):(probe>=g.y0?1:0);
-        if(g.el && p!==g.p){g.p=p; g.el.setAttribute('d', p>0 ? 'M'+g.x0.toFixed(1)+' '+g.y0.toFixed(1)+' L'+(g.x0+(g.x1-g.x0)*p).toFixed(1)+' '+(g.y0+(g.y1-g.y0)*p).toFixed(1) : 'M'+g.x0.toFixed(1)+' '+g.y0.toFixed(1))}
-        if(g.node){g.node.el.classList.toggle(g.node.type,p>=1)}});
-    }
+    segs.forEach(function(g){var p=g.y1>g.y0?clamp((probe-g.y0)/(g.y1-g.y0)):(probe>=g.y0?1:0);
+      if(g.el && p!==g.p){g.p=p; g.el.setAttribute('d', p>0 ? 'M'+g.x0.toFixed(1)+' '+g.y0.toFixed(1)+' L'+(g.x0+(g.x1-g.x0)*p).toFixed(1)+' '+(g.y0+(g.y1-g.y0)*p).toFixed(1) : 'M'+g.x0.toFixed(1)+' '+g.y0.toFixed(1))}
+      if(g.node){g.node.el.classList.toggle(g.node.type,p>=1)}});
     if(traj && !matchMedia('(max-width:860px)').matches){
       var r=traj.getBoundingClientRect(), t=r.top+y;
       var p=clamp((y+vh*0.8-t)/(r.height+vh*0.2));
@@ -462,6 +456,9 @@ body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
     document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
     document.querySelectorAll('.card.reveal,.person.reveal').forEach(function(el,i){el.style.transitionDelay=((i%3)*.12)+'s'});
+    var motionOK=matchMedia('(prefers-reduced-motion:no-preference)').matches;
+    var bo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in'); if(e.target.id==='orbit' && motionOK){var am=document.getElementById('orbAnim'); setTimeout(function(){try{am.beginElement()}catch(x){}},1400)} bo.unobserve(e.target)}})},{threshold:.4});
+    ['orbit','gear'].forEach(function(id){var el=document.getElementById(id); if(el) bo.observe(el)});
     var links=document.querySelectorAll('.nav a');
     var nav=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
     document.querySelectorAll('main section[id]').forEach(function(s){nav.observe(s)});
