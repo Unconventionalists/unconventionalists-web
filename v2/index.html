@@ -88,23 +88,26 @@ main{position:relative}
 .trail .track{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:6 7;opacity:.16}
 .trail .draw{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:6 7;opacity:.9;stroke-linecap:round}
 .trail .m{fill:none;stroke:#fff;stroke-width:12}
+.trail .seg{fill:none;stroke:currentColor;stroke-width:2;stroke-dasharray:6 7;opacity:.85;stroke-linecap:round}
+.trail .seg.ex{stroke-width:2.5;stroke-dasharray:9 9;stroke:url(#exg)}
+body[data-trail="plot"] .trail .track{opacity:.1}
 section{position:relative;padding-block:clamp(4.5rem,10vw,8rem)}
 section.hero{padding:0}
 .eyebrow .num{position:absolute;left:calc(-1*var(--lane)/2);top:50%;width:30px;height:30px;margin:0;transform:translate(-50%,-50%);border-radius:50%;border:1.5px solid currentColor;background:var(--bg);display:grid;place-items:center;font-size:.78rem;opacity:1;transition:background .4s,color .4s,box-shadow .4s}
 section.lit .eyebrow .num{background:currentColor;box-shadow:0 0 0 5px var(--bg)}
 section.lit .eyebrow .num span{color:var(--bg)}
-.sec-head.r{text-align:right}
-.sec-head.r .eyebrow{flex-direction:row-reverse}
-.sec-head.r h2{margin-left:auto}
-.sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--lane)/2);transform:translate(50%,-50%)}
+body[data-trail="plot"] .sec-head.r{text-align:right}
+body[data-trail="plot"] .sec-head.r .eyebrow{flex-direction:row-reverse}
+body[data-trail="plot"] .sec-head.r h2{margin-left:auto}
+body[data-trail="plot"] .sec-head.r .eyebrow .num{left:auto;right:calc(-1*var(--lane)/2);transform:translate(50%,-50%)}
 @media (max-width:860px){
   [data-spine]{--lane:2.6rem}
   [data-spine] .wrap{width:calc(100% - var(--gut) - var(--lane));margin-left:var(--lane);margin-right:0}
   .eyebrow .num{width:26px;height:26px;font-size:.72rem}
-  .sec-head.r{text-align:left}
-  .sec-head.r .eyebrow{flex-direction:row}
-  .sec-head.r h2{margin-left:0}
-  .sec-head.r .eyebrow .num{right:auto;left:calc(-1*var(--lane)/2);transform:translate(-50%,-50%)}
+  body[data-trail="plot"] .sec-head.r{text-align:left}
+  body[data-trail="plot"] .sec-head.r .eyebrow{flex-direction:row}
+  body[data-trail="plot"] .sec-head.r h2{margin-left:0}
+  body[data-trail="plot"] .sec-head.r .eyebrow .num{right:auto;left:calc(-1*var(--lane)/2);transform:translate(-50%,-50%)}
 }
 .sec-head{margin-bottom:clamp(2rem,5vw,3.5rem);position:relative;z-index:4}
 .lead-col{position:relative;z-index:4}
@@ -234,7 +237,7 @@ section.lit .eyebrow .num span{color:var(--bg)}
 </header>
 
 <main>
-<svg class="trail" id="trail" aria-hidden="true"><defs><mask id="tm" maskUnits="userSpaceOnUse" x="0" y="0" width="10" height="10"><path class="m" id="tmask" d=""/></mask></defs><path class="track" id="track" d=""/><path class="draw" id="draw" d="" mask="url(#tm)"/></svg>
+<svg class="trail" id="trail" aria-hidden="true"><defs><linearGradient id="exg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EDD9A3"/><stop offset=".55" stop-color="#EDD9A3"/><stop offset="1" stop-color="#EDD9A3" stop-opacity="0"/></linearGradient><mask id="tm" maskUnits="userSpaceOnUse" x="0" y="0" width="10" height="10"><path class="m" id="tmask" d=""/></mask></defs><path class="track" id="track" d=""/><path class="draw" id="draw" d="" mask="url(#tm)"/><g id="segs"></g></svg>
 <section class="hero" id="hero" aria-labelledby="h1">
   <div class="wrap">
     <div class="copy">
@@ -370,7 +373,13 @@ section.lit .eyebrow .num span{color:var(--bg)}
   var mainEl=document.querySelector('main'), trail=document.getElementById('trail'), track=document.getElementById('track'), draw=document.getElementById('draw'), tmask=document.getElementById('tmask'), tmaskEl=document.getElementById('tm');
   var sections=[].slice.call(document.querySelectorAll('[data-spine]'));
   var traj=document.getElementById('traj'), stages=document.getElementById('stages');
-  var N=700, ys=[], L=0, nodes=[], mainTop=0, lastStart=null, W=0;
+  var N=700, ys=[], L=0, nodes=[], mainTop=0, lastStart=null, W=0, segs=[], segsEl=document.getElementById('segs');
+  var mode=(location.search.match(/trail=(\w+)/)||[])[1]||'quiet'; document.body.dataset.trail=mode;
+  function corner(d,a,p,b,r){ /* rounded corner at p between a->p and p->b */
+    var v1x=p.x-a.x,v1y=p.y-a.y,l1=Math.hypot(v1x,v1y),v2x=b.x-p.x,v2y=b.y-p.y,l2=Math.hypot(v2x,v2y);
+    var t=Math.min(r,l1/2,l2/2); var q1={x:p.x-v1x/l1*t,y:p.y-v1y/l1*t},q2={x:p.x+v2x/l2*t,y:p.y+v2y/l2*t};
+    return d+' L'+q1.x.toFixed(1)+' '+q1.y.toFixed(1)+' Q'+p.x.toFixed(1)+' '+p.y.toFixed(1)+' '+q2.x.toFixed(1)+' '+q2.y.toFixed(1);
+  }
   function clamp(v){return v<0?0:v>1?1:v}
   function rel(r,m){return {x:r.left-m.left+r.width/2,y:r.top-m.top+r.height/2}}
   function layout(){
@@ -390,22 +399,30 @@ section.lit .eyebrow .num span{color:var(--bg)}
       pts.push({p:{x:p.x,y:r.bottom-m.top-pad*0.5},exit:true});
     });
     pts.sort(function(a,b){return a.p.y-b.p.y});
-    var d='M'+pts[0].p.x.toFixed(1)+' '+pts[0].p.y.toFixed(1);
-    for(var i=1;i<pts.length;i++){
-      var a=pts[i-1].p,b=pts[i].p;
-      if(Math.abs(a.x-b.x)<2){
-        if(b.y-a.y>140){var bow=(b.x<W/2?-1:1)*10; d+=' Q'+(b.x+bow).toFixed(1)+' '+((a.y+b.y)/2).toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1)}
-        else d+=' L'+b.x.toFixed(1)+' '+b.y.toFixed(1);
-      } else {
-        var my=(a.y+b.y)/2; d+=' C'+a.x.toFixed(1)+' '+my.toFixed(1)+' '+b.x.toFixed(1)+' '+my.toFixed(1)+' '+b.x.toFixed(1)+' '+b.y.toFixed(1);
+    segsEl.innerHTML=''; segs=[]; L=0;
+    if(mode==='plot'){
+      var d='M'+pts[0].p.x.toFixed(1)+' '+pts[0].p.y.toFixed(1);
+      for(var i=1;i<pts.length;i++){
+        var a=pts[i-1].p,b=pts[i].p;
+        if(Math.abs(a.x-b.x)<2){ d+=' L'+b.x.toFixed(1)+' '+b.y.toFixed(1); }
+        else { var st=Math.min(34,(b.y-a.y)/3); var p1={x:a.x,y:a.y+st},p2={x:b.x,y:b.y-st};
+          d=corner(d,a,p1,p2,26); d=corner(d,p1,p2,b,26); d+=' L'+b.x.toFixed(1)+' '+b.y.toFixed(1); }
       }
+      track.setAttribute('d',d); draw.setAttribute('d',d); tmask.setAttribute('d',d);
+      L=draw.getTotalLength(); tmask.style.strokeDasharray=L+' '+L;
+      ys=[]; var best=nodes.map(function(){return {d:1e12,s:0}});
+      for(var k=0;k<=N;k++){var q=draw.getPointAtLength(k*L/N); ys.push(q.y);
+        for(var j=0;j<nodes.length;j++){var dx=q.x-nodes[j].p.x,dy=q.y-nodes[j].p.y,dd=dx*dx+dy*dy; if(dd<best[j].d){best[j].d=dd;best[j].s=k*L/N}}}
+      nodes.forEach(function(n,j){n.s=best[j].s});
+    } else {
+      track.setAttribute('d',''); draw.setAttribute('d',''); tmask.setAttribute('d','');
+      function seg(x1,y1,x2,y2,cls,node){var el=document.createElementNS('http://www.w3.org/2000/svg','path'); el.setAttribute('class','seg'+(cls?' '+cls:'')); el.setAttribute('d','M'+x1.toFixed(1)+' '+y1.toFixed(1)); segsEl.appendChild(el); segs.push({el:el,x0:x1,y0:y1,x1:x2,y1:y2,node:node,p:-1})}
+      sections.forEach(function(sec){
+        var r=sec.getBoundingClientRect(); var n=sec.querySelector('.eyebrow .num'); var p=rel(n.getBoundingClientRect(),m);
+        seg(p.x,r.top-m.top,p.x,p.y-(mob?13:15),'',{el:sec,type:'lit'});
+        if(mob && sec.id==='how'){var nds=[].slice.call(sec.querySelectorAll('.stage .node')); if(nds.length>1){var q1=rel(nds[0].getBoundingClientRect(),m),q2=rel(nds[nds.length-1].getBoundingClientRect(),m); seg(q1.x,q1.y,q2.x,q2.y,''); nds.forEach(function(nd){var q=rel(nd.getBoundingClientRect(),m); segs.push({el:null,y0:q.y,y1:q.y,node:{el:nd.parentNode,type:'in'}})})}}
+      });
     }
-    track.setAttribute('d',d); draw.setAttribute('d',d); tmask.setAttribute('d',d);
-    L=draw.getTotalLength(); tmask.style.strokeDasharray=L+' '+L;
-    ys=[]; var best=nodes.map(function(){return {d:1e12,s:0}});
-    for(var k=0;k<=N;k++){var q=draw.getPointAtLength(k*L/N); ys.push(q.y);
-      for(var j=0;j<nodes.length;j++){var dx=q.x-nodes[j].p.x,dy=q.y-nodes[j].p.y,dd=dx*dx+dy*dy; if(dd<best[j].d){best[j].d=dd;best[j].s=k*L/N}}}
-    nodes.forEach(function(n,j){n.s=best[j].s});
   }
   var ticking=false;
   function update(){
@@ -413,12 +430,17 @@ section.lit .eyebrow .num span{color:var(--bg)}
     var y=scrollY, vh=innerHeight;
     top.classList.toggle('scrolled',y>8);
     if(!launched && y>24) play();
-    if(L>0){
-      var probe=y+vh*0.62-mainTop, lo=0, hi=N;
+    var probe=y+vh*0.62-mainTop;
+    if(mode==='plot' && L>0){
+      var lo=0, hi=N;
       while(lo<hi){var mid=(lo+hi+1)>>1; if(ys[mid]<=probe) lo=mid; else hi=mid-1}
       var sLen=(ys[0]>probe)?0:lo*L/N;
       tmask.style.strokeDashoffset=(L-sLen);
       nodes.forEach(function(n){var on=sLen>=n.s-1; if(n.el.classList.contains('stage')) n.el.classList.toggle('in',on); else n.el.classList.toggle('lit',on)});
+    } else if(mode!=='plot'){
+      segs.forEach(function(g){var p=g.y1>g.y0?clamp((probe-g.y0)/(g.y1-g.y0)):(probe>=g.y0?1:0);
+        if(g.el && p!==g.p){g.p=p; g.el.setAttribute('d', p>0 ? 'M'+g.x0.toFixed(1)+' '+g.y0.toFixed(1)+' L'+(g.x0+(g.x1-g.x0)*p).toFixed(1)+' '+(g.y0+(g.y1-g.y0)*p).toFixed(1) : 'M'+g.x0.toFixed(1)+' '+g.y0.toFixed(1))}
+        if(g.node){g.node.el.classList.toggle(g.node.type,p>=1)}});
     }
     if(traj && !matchMedia('(max-width:860px)').matches){
       var r=traj.getBoundingClientRect(), t=r.top+y;

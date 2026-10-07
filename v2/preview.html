@@ -38,12 +38,13 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:"Figtree",system-
 .static .scroll img{border:0;border-radius:0}
 </style>
 <div class="bar"><div><h1>Unconventionalists website v2 · preview</h1><p>Live page in a phone and a desktop frame. Scroll inside each frame; the rocket launches on the first scroll.</p></div>
+<div class="tabs" role="group" aria-label="Trail option"><button type="button" data-opt="quiet" aria-pressed="true">A · Quiet</button><button type="button" data-opt="plot" aria-pressed="false">B · Plotted</button></div>
 <div class="tabs" role="group" aria-label="View"><button type="button" data-view="both" aria-pressed="true">Both</button><button type="button" data-view="phone" aria-pressed="false">Phone</button><button type="button" data-view="desk" aria-pressed="false">Desktop</button></div></div>
 <div class="stage both" id="stage">
-  <div class="frame" id="f-phone"><span class="lab">Phone · 390 × 844</span><div class="phone"><div class="screen"><div class="notch"></div><iframe src="site/index.html" title="Phone preview" loading="eager"></iframe></div></div></div>
-  <div class="frame" id="f-desk"><span class="lab">Desktop · 1440 × 900, scaled to fit</span><div class="desk"><div class="chrome"><i></i><i></i><i></i></div><div class="screen" id="dscreen"><iframe src="site/index.html" title="Desktop preview" id="dframe"></iframe></div></div></div>
+  <div class="frame" id="f-phone"><span class="lab">Phone · 390 × 844</span><div class="phone"><div class="screen"><div class="notch"></div><iframe data-src="site/index.html" title="Phone preview" loading="eager"></iframe></div></div></div>
+  <div class="frame" id="f-desk"><span class="lab">Desktop · 1440 × 900, scaled to fit</span><div class="desk"><div class="chrome"><i></i><i></i><i></i></div><div class="screen" id="dscreen"><iframe data-src="site/index.html" title="Desktop preview" id="dframe"></iframe></div></div></div>
 </div>
-<div class="static"><h2>Static renders</h2><p>If the frames above are blank, these are full-page screenshots of the same build. The phone one scrolls.</p>
+<div class="static"><h2>Static renders · option A</h2><p>If the frames above are blank, these are full-page screenshots of option A. The phone one scrolls.</p>
 <div class="row"><div class="scroll"><img src="renders/phone.jpg" alt="Phone render, full page" width="390"></div><img src="renders/desktop.jpg" alt="Desktop render, full page"></div></div>
 <script>
 (function(){
@@ -52,6 +53,10 @@ body{margin:0;background:var(--bg);color:var(--fg);font-family:"Figtree",system-
     document.querySelectorAll('.tabs button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
     var v=b.dataset.view; stage.classList.toggle('both',v==='both'); fp.classList.toggle('hide',v==='desk'); fd.classList.toggle('hide',v==='phone'); fit();
   })});
+  var frames=document.querySelectorAll('iframe[data-src]');
+  function load(opt){frames.forEach(function(f){f.src=f.dataset.src+'?trail='+opt})}
+  document.querySelectorAll('[data-opt]').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('[data-opt]').forEach(function(x){x.setAttribute('aria-pressed',x===b)});load(b.dataset.opt)})});
+  load('quiet');
   var scr=document.getElementById('dscreen'), fr=document.getElementById('dframe');
   function fit(){var w=scr.clientWidth; fr.style.transform='scale('+(w/1440)+')'}
   addEventListener('resize',fit); fit(); setTimeout(fit,300);
