@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unconventionalists</title>
+<meta name="description" content="Unconventionalists uses AI to find overlooked opportunities, then builds and launches businesses that run with almost no one at the controls.">
+<meta property="og:title" content="Unconventionalists">
+<meta property="og:description" content="Companies that run themselves. AI finds the opportunity, builds the business, and keeps it running.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://unconventionalists.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: olive blueprint hero (drawing right, thesis left), then a chalk page with a left-aligned
+   measure and one pipeline diagram as the working centrepiece. */
+:root{
+  --olive:#8A8759;        /* brand ground, from the logo */
+  --olive-deep:#5C5A37;
+  --olive-pale:#CFCDA8;
+  --chalk:#F3F1E4;        /* page ground */
+  --chalk-2:#E8E5D3;      /* raised panels */
+  --ink:#2B2A1F;
+  --ink-soft:#5F5D48;
+  --line:#FFFFFF;         /* blueprint strokes on olive */
+  --bg:var(--chalk); --fg:var(--ink); --muted:var(--ink-soft); --panel:var(--chalk-2); --rule:#CFCBAF;
+  --accent:var(--olive); --accent-ink:#FFFFFF;
+  --display:"Unbounded",system-ui,sans-serif;
+  --body:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1D15; --fg:#EDEBDC; --muted:#B5B294; --panel:#2A2920; --rule:#45432F;
+    --accent:#A8A570; --accent-ink:#1E1D15; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1D15; --fg:#EDEBDC; --muted:#B5B294; --panel:#2A2920; --rule:#45432F;
+  --accent:#A8A570; --accent-ink:#1E1D15; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:1.0625rem;line-height:1.55;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;text-wrap:balance;margin:0}
+p{margin:0}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* Header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--olive);color:#fff}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.85rem}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.02em}
+.brand svg{width:34px;height:34px;flex:none}
+.nav{display:flex;gap:1.5rem;font-weight:500;font-size:.95rem}
+.nav a{text-decoration:none;opacity:.9;border-bottom:2px solid transparent;padding-bottom:2px}
+.nav a:hover{border-color:#fff;opacity:1}
+@media (max-width:640px){.nav{display:none}}
+
+/* Hero */
+.hero{background:var(--olive);color:#fff;overflow:hidden;position:relative}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center;padding-block:4.5rem 5rem}
+.hero h1{font-size:clamp(2.1rem,5vw,3.9rem);line-height:1.05}
+.hero .lede{margin-top:1.5rem;font-size:clamp(1.1rem,1.6vw,1.3rem);max-width:34rem;line-height:1.5;color:#F6F5EA}
+.cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.2rem}
+.btn{display:inline-block;padding:.85rem 1.3rem;border-radius:999px;text-decoration:none;font-weight:600;font-size:1rem;border:2px solid #fff;line-height:1}
+.btn.solid{background:#fff;color:var(--olive-deep)}
+.btn.solid:hover{background:#F3F1E4}
+.btn.ghost{color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.draw{display:block;width:100%;max-width:520px;margin-inline:auto}
+.draw text{font-family:var(--body);font-size:7px;fill:#fff;fill-opacity:.85;text-anchor:middle;dominant-baseline:middle}
+.draw .s{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.draw .thin{stroke-width:1.3}
+.draw .dash{stroke-dasharray:4 5}
+.draw .fill{fill:#fff}
+.hero .foot{margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap;color:#F0EEDC;font-size:.95rem}
+.hero .foot span{display:flex;align-items:center;gap:.5rem}
+.hero .foot i{width:9px;height:9px;border-radius:50%;background:#fff;display:inline-block}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr;gap:2rem;padding-block:3rem 3.5rem}
+  .draw{max-width:360px}
+}
+/* Draw-in animation: one orchestrated moment on load */
+@media (prefers-reduced-motion:no-preference){
+  .draw .s{stroke-dasharray:1200;stroke-dashoffset:1200;animation:draw 2.4s cubic-bezier(.4,0,.2,1) forwards}
+  .draw .s:nth-child(2){animation-delay:.15s}.draw .s:nth-child(3){animation-delay:.3s}
+  .draw g.rocket .s{animation-delay:.5s}.draw g.flame .s{animation-delay:1.3s}.draw g.hands .s{animation-delay:1.1s}
+  .draw .bits{opacity:0;animation:fade .9s 1.6s forwards}
+  .draw .fill{opacity:0;animation:fade .6s 1.9s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes fade{to{opacity:1}}
+}
+
+/* Sections */
+section{padding-block:5rem}
+@media (max-width:640px){section{padding-block:3.5rem}}
+.kicker{font-weight:600;color:var(--muted);font-size:.95rem;margin-bottom:.9rem}
+h2{font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.15}
+.measure{max-width:38rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr;gap:1.5rem}}
+.prose p+p{margin-top:1rem}
+.prose{font-size:1.1rem;color:var(--fg)}
+.prose .quiet{color:var(--muted)}
+
+/* Pipeline */
+.pipe{background:var(--panel);border-block:1px solid var(--rule)}
+.stages{list-style:none;margin:2.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--rule);border-radius:14px;overflow:hidden;background:var(--bg)}
+.stage{border-right:1px solid var(--rule);min-width:0}
+.stage:last-child{border-right:0}
+.stage button{all:unset;display:block;width:100%;box-sizing:border-box;padding:1.2rem 1.1rem;cursor:pointer;text-align:left;border-top:5px solid transparent}
+.stage button:hover{background:var(--panel)}
+.stage button[aria-selected="true"]{border-top-color:var(--accent);background:var(--panel)}
+.stage .n{font-family:var(--display);font-size:.8rem;color:var(--muted);display:block;margin-bottom:.4rem}
+.stage .t{font-family:var(--display);font-size:1.05rem;font-weight:700;display:block}
+.stage .who{display:block;margin-top:.5rem;font-size:.85rem;color:var(--muted)}
+.detail{margin-top:1.4rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:1.6rem 1.8rem;border-radius:14px;background:var(--bg);border:1px solid var(--rule)}
+.detail h3{font-size:1.25rem}
+.detail p{margin-top:.6rem;color:var(--fg)}
+.detail .meta{font-size:.95rem;color:var(--muted)}
+.detail .meta dt{font-weight:600;color:var(--fg);margin-top:.9rem}
+.detail .meta dt:first-child{margin-top:0}
+.detail .meta dd{margin:0}
+@media (max-width:900px){
+  .stages{grid-template-columns:1fr 1fr 1fr}
+  .stage:nth-child(3){border-right:0}
+  .stage:nth-child(n+4){border-top:1px solid var(--rule)}
+  .stage:nth-child(4){border-right:1px solid var(--rule)}
+}
+@media (max-width:560px){
+  .stages{grid-template-columns:1fr 1fr}
+  .stage{border-right:1px solid var(--rule)}
+  .stage:nth-child(2n){border-right:0}
+  .stage:nth-child(n+3){border-top:1px solid var(--rule)}
+  .stage:nth-child(3){border-right:1px solid var(--rule)}
+  .detail{grid-template-columns:1fr;gap:1.2rem;padding:1.3rem}
+}
+
+/* Human list */
+.human{list-style:none;margin:1.8rem 0 0;padding:0;display:grid;gap:0}
+.human li{padding:1.1rem 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:11rem 1fr;gap:1rem}
+.human li:last-child{border-bottom:1px solid var(--rule)}
+.human b{font-weight:600}
+.human span{color:var(--muted)}
+@media (max-width:560px){.human li{grid-template-columns:1fr;gap:.25rem}}
+
+/* Board */
+.board{margin-top:2rem;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.row{display:grid;grid-template-columns:1.3fr 2fr 1fr;gap:1rem;padding:1.1rem 1.4rem;border-top:1px solid var(--rule);align-items:center}
+.row:first-child{border-top:0;background:var(--panel);font-weight:600;font-size:.9rem;color:var(--muted)}
+.row .name{font-family:var(--display);font-weight:700;font-size:.95rem}
+.chip{display:inline-flex;justify-self:start;align-items:center;gap:.45rem;font-size:.85rem;font-weight:600;padding:.3rem .7rem;border-radius:999px;background:var(--panel);border:1px solid var(--rule);white-space:nowrap}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
+.chip.live i{background:#4F8A3F}
+.chip.wait i{background:var(--rule)}
+.row .desc{color:var(--muted)}
+@media (max-width:640px){.row{grid-template-columns:1fr;gap:.4rem}.row:first-child{display:none}}
+
+/* Contact */
+.contact{background:var(--olive);color:#fff}
+.contact h2{color:#fff}
+.contact .two{align-items:center}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem;margin-top:1.4rem}
+.mail code{font-family:var(--body);font-weight:600;font-size:1.15rem;background:rgba(255,255,255,.14);padding:.6rem .9rem;border-radius:10px;user-select:all}
+.mail button{all:unset;cursor:pointer;border:2px solid #fff;border-radius:999px;padding:.55rem 1rem;font-weight:600;font-size:.95rem}
+.mail button:hover{background:rgba(255,255,255,.12)}
+.contact p{color:#F3F1E4}
+.contact .quiet{font-size:.95rem;margin-top:1.2rem;color:#E4E2CD}
+
+footer{padding-block:2rem;font-size:.9rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between}
+footer a{text-decoration:none}
+footer a:hover{text-decoration:underline}
+.toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));transform:translate(-50%,1rem);background:var(--fg);color:var(--bg);padding:.7rem 1.1rem;border-radius:999px;font-weight:600;opacity:0;pointer-events:none;transition:.25s}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 240 240">
+    <path d="M212.0 120.0 L211.8 126.5 L223.3 132.2 L220.1 148.2 L207.3 149.1 L205.0 155.2 L202.3 161.1 L210.7 170.8 L201.7 184.4 L189.5 180.3 L185.1 185.1 L180.3 189.5 L184.4 201.7 L170.8 210.7 L161.1 202.3 L155.2 205.0 L149.1 207.3 L148.2 220.1 L132.2 223.3 L126.5 211.8 L120.0 212.0 L113.5 211.8 L107.8 223.3 L91.8 220.1 L90.9 207.3 L84.8 205.0 L78.9 202.3 L69.2 210.7 L55.6 201.7 L59.7 189.5 L54.9 185.1 L50.5 180.3 L38.3 184.4 L29.3 170.8 L37.7 161.1 L35.0 155.2 L32.7 149.1 L19.9 148.2 L16.7 132.2 L28.2 126.5 L28.0 120.0 L28.2 113.5 L16.7 107.8 L19.9 91.8 L32.7 90.9 L35.0 84.8 L37.7 78.9 L29.3 69.2 L38.3 55.6 L50.5 59.7 L54.9 54.9 L59.7 50.5 L55.6 38.3 L69.2 29.3 L78.9 37.7 L84.8 35.0 L90.9 32.7 L91.8 19.9 L107.8 16.7 L113.5 28.2 L120.0 28.0 L126.5 28.2 L132.2 16.7 L148.2 19.9 L149.1 32.7 L155.2 35.0 L161.1 37.7 L170.8 29.3 L184.4 38.3 L180.3 50.5 L185.1 54.9 L189.5 59.7 L201.7 55.6 L210.7 69.2 L202.3 78.9 L205.0 84.8 L207.3 90.9 L220.1 91.8 L223.3 107.8 L211.8 113.5 Z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/>
+    <circle cx="120" cy="120" r="70" fill="none" stroke="currentColor" stroke-width="4" stroke-dasharray="6 7"/>
+    <path d="M120 58 C104 80 100 110 104 150 L136 150 C140 110 136 80 120 58 Z" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round"/>
+    <circle cx="120" cy="104" r="9" fill="none" stroke="currentColor" stroke-width="6"/>
+    <path d="M104 134 L88 152 L104 150 M136 134 L152 152 L136 150" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M114 152 L120 176 L126 152" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Unconventionalists home"><svg><use href="#mark"/></svg>UNCONVENTIONALISTS</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#thesis">Why</a>
+      <a href="#pipeline">How it works</a>
+      <a href="#ventures">Ventures</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Companies that run themselves.</h1>
+      <p class="lede">Unconventionalists uses AI to find overlooked opportunities, then builds and launches businesses that run with almost no one at the controls.</p>
+      <div class="cta">
+        <a class="btn solid" href="#pipeline">See how it works</a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+      <div class="foot">
+        <span><i></i>Founded 2026, Hampshire, UK</span>
+        <span><i></i>First venture in build</span>
+      </div>
+    </div>
+
+    <svg class="draw" viewBox="0 0 400 300" role="img" aria-label="Blueprint drawing of a rocket launching from a circuit board, inside a gear ring with binary around the edge">
+      <rect class="s thin dash" x="14" y="14" width="372" height="272" rx="6"/>
+      <g transform="translate(200 150) scale(1.1) translate(-120 -120)">
+        <path class="s thin" d="M212.0 120.0 L211.8 126.5 L223.3 132.2 L220.1 148.2 L207.3 149.1 L205.0 155.2 L202.3 161.1 L210.7 170.8 L201.7 184.4 L189.5 180.3 L185.1 185.1 L180.3 189.5 L184.4 201.7 L170.8 210.7 L161.1 202.3 L155.2 205.0 L149.1 207.3 L148.2 220.1 L132.2 223.3 L126.5 211.8 L120.0 212.0 L113.5 211.8 L107.8 223.3 L91.8 220.1 L90.9 207.3 L84.8 205.0 L78.9 202.3 L69.2 210.7 L55.6 201.7 L59.7 189.5 L54.9 185.1 L50.5 180.3 L38.3 184.4 L29.3 170.8 L37.7 161.1 L35.0 155.2 L32.7 149.1 L19.9 148.2 L16.7 132.2 L28.2 126.5 L28.0 120.0 L28.2 113.5 L16.7 107.8 L19.9 91.8 L32.7 90.9 L35.0 84.8 L37.7 78.9 L29.3 69.2 L38.3 55.6 L50.5 59.7 L54.9 54.9 L59.7 50.5 L55.6 38.3 L69.2 29.3 L78.9 37.7 L84.8 35.0 L90.9 32.7 L91.8 19.9 L107.8 16.7 L113.5 28.2 L120.0 28.0 L126.5 28.2 L132.2 16.7 L148.2 19.9 L149.1 32.7 L155.2 35.0 L161.1 37.7 L170.8 29.3 L184.4 38.3 L180.3 50.5 L185.1 54.9 L189.5 59.7 L201.7 55.6 L210.7 69.2 L202.3 78.9 L205.0 84.8 L207.3 90.9 L220.1 91.8 L223.3 107.8 L211.8 113.5 Z"/>
+        <circle class="s thin dash" cx="120" cy="120" r="70"/>
+        <g class="bits">
+<text x="120.0" y="40.0" transform="rotate(0.0 120.0 40.0)">1</text>
+<text x="132.5" y="41.0" transform="rotate(9.0 132.5 41.0)">0</text>
+<text x="144.7" y="43.9" transform="rotate(18.0 144.7 43.9)">1</text>
+<text x="156.3" y="48.7" transform="rotate(27.0 156.3 48.7)">0</text>
+<text x="167.0" y="55.3" transform="rotate(36.0 167.0 55.3)">0</text>
+<text x="176.6" y="63.4" transform="rotate(45.0 176.6 63.4)">1</text>
+<text x="184.7" y="73.0" transform="rotate(54.0 184.7 73.0)">1</text>
+<text x="191.3" y="83.7" transform="rotate(63.0 191.3 83.7)">0</text>
+<text x="196.1" y="95.3" transform="rotate(72.0 196.1 95.3)">1</text>
+<text x="199.0" y="107.5" transform="rotate(81.0 199.0 107.5)">0</text>
+<text x="200.0" y="120.0" transform="rotate(90.0 200.0 120.0)">1</text>
+<text x="199.0" y="132.5" transform="rotate(99.0 199.0 132.5)">1</text>
+<text x="196.1" y="144.7" transform="rotate(108.0 196.1 144.7)">0</text>
+<text x="191.3" y="156.3" transform="rotate(117.0 191.3 156.3)">0</text>
+<text x="184.7" y="167.0" transform="rotate(126.0 184.7 167.0)">1</text>
+<text x="176.6" y="176.6" transform="rotate(135.0 176.6 176.6)">0</text>
+<text x="167.0" y="184.7" transform="rotate(144.0 167.0 184.7)">1</text>
+<text x="156.3" y="191.3" transform="rotate(153.0 156.3 191.3)">0</text>
+<text x="144.7" y="196.1" transform="rotate(162.0 144.7 196.1)">1</text>
+<text x="132.5" y="199.0" transform="rotate(171.0 132.5 199.0)">1</text>
+<text x="120.0" y="200.0" transform="rotate(180.0 120.0 200.0)">0</text>
+<text x="107.5" y="199.0" transform="rotate(189.0 107.5 199.0)">0</text>
+<text x="95.3" y="196.1" transform="rotate(198.0 95.3 196.1)">1</text>
+<text x="83.7" y="191.3" transform="rotate(207.0 83.7 191.3)">1</text>
+<text x="73.0" y="184.7" transform="rotate(216.0 73.0 184.7)">0</text>
+<text x="63.4" y="176.6" transform="rotate(225.0 63.4 176.6)">1</text>
+<text x="55.3" y="167.0" transform="rotate(234.0 55.3 167.0)">0</text>
+<text x="48.7" y="156.3" transform="rotate(243.0 48.7 156.3)">0</text>
+<text x="43.9" y="144.7" transform="rotate(252.0 43.9 144.7)">1</text>
+<text x="41.0" y="132.5" transform="rotate(261.0 41.0 132.5)">0</text>
+<text x="40.0" y="120.0" transform="rotate(270.0 40.0 120.0)">1</text>
+<text x="41.0" y="107.5" transform="rotate(279.0 41.0 107.5)">1</text>
+<text x="43.9" y="95.3" transform="rotate(288.0 43.9 95.3)">0</text>
+<text x="48.7" y="83.7" transform="rotate(297.0 48.7 83.7)">1</text>
+<text x="55.3" y="73.0" transform="rotate(306.0 55.3 73.0)">0</text>
+<text x="63.4" y="63.4" transform="rotate(315.0 63.4 63.4)">0</text>
+<text x="73.0" y="55.3" transform="rotate(324.0 73.0 55.3)">1</text>
+<text x="83.7" y="48.7" transform="rotate(333.0 83.7 48.7)">0</text>
+<text x="95.3" y="43.9" transform="rotate(342.0 95.3 43.9)">1</text>
+<text x="107.5" y="41.0" transform="rotate(351.0 107.5 41.0)">1</text>
+        </g>
+      </g>
+      <g class="rocket">
+        <path class="s" d="M200 62 C178 92 172 128 177 176 L223 176 C228 128 222 92 200 62 Z"/>
+        <circle class="s" cx="200" cy="120" r="12"/>
+        <path class="s" d="M177 154 L152 182 L177 176"/>
+        <path class="s" d="M223 154 L248 182 L223 176"/>
+        <rect class="s thin" x="191" y="139" width="18" height="14" rx="2"/>
+        <text x="200" y="146">AI</text>
+      </g>
+      <g class="flame">
+        <path class="s" d="M190 178 C190 200 198 210 200 222 C202 210 210 200 210 178"/>
+        <path class="s thin" d="M196 178 C196 190 199 196 200 202 C201 196 204 190 204 178"/>
+      </g>
+      <g class="hands">
+        <path class="s thin" d="M60 240 L92 240 L104 228 L124 228 L136 240 L160 240"/>
+        <path class="s thin" d="M240 240 L264 240 L276 228 L296 228 L308 240 L340 240"/>
+        <path class="s thin" d="M160 240 L176 252 L200 252 L224 252 L240 240"/>
+        <circle class="fill" cx="60" cy="240" r="3"/><circle class="fill" cx="340" cy="240" r="3"/>
+        <path class="s thin" d="M104 228 L104 206 M296 228 L296 206 M200 252 L200 270"/>
+        <circle class="fill" cx="104" cy="206" r="3"/><circle class="fill" cx="296" cy="206" r="3"/><circle class="fill" cx="200" cy="270" r="3"/>
+      </g>
+      <g class="arrows">
+        <path class="s thin" d="M330 110 L330 70 M322 80 L330 70 L338 80"/>
+        <path class="s thin" d="M350 130 L350 92 M342 102 L350 92 L358 102"/>
+        <path class="s thin" d="M60 150 C60 120 80 100 110 96 M100 90 L110 96 L104 106"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section id="thesis">
+  <div class="wrap two">
+    <div>
+      <p class="kicker">Why we exist</p>
+      <h2>Most businesses are built around people doing repeatable work. We start from the other end.</h2>
+    </div>
+    <div class="prose">
+      <p>What would a company look like if software did the work from day one, and people only stepped in for the decisions that matter? That is the question Unconventionalists is set up to answer, one venture at a time.</p>
+      <p>We use AI to scan markets for gaps that are too small, too niche or too fast-moving for a conventional team to chase. When a gap holds up, we build the product, the marketing, the customer service and the finance as one automated system, launch it, and let it run.</p>
+      <p class="quiet">Each venture is a separate, revenue-generating business. Unconventionalists is the parent that finds them, builds them and keeps them honest.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pipe" id="pipeline">
+  <div class="wrap">
+    <p class="kicker">How it works</p>
+    <h2 class="measure">Five stages, from a hunch in the data to a business that pays for itself.</h2>
+    <ol class="stages" role="tablist" aria-label="Pipeline stages">
+      <li class="stage" role="presentation"><button role="tab" id="tab-0" aria-selected="true" aria-controls="panel" data-i="0"><span class="n">Stage 1</span><span class="t">Scan</span><span class="who">AI, continuous</span></button></li>
+      <li class="stage" role="presentation"><button role="tab" id="tab-1" aria-selected="false" aria-controls="panel" data-i="1"><span class="n">Stage 2</span><span class="t">Validate</span><span class="who">AI, with a human go/no-go</span></button></li>
+      <li class="stage" role="presentation"><button role="tab" id="tab-2" aria-selected="false" aria-controls="panel" data-i="2"><span class="n">Stage 3</span><span class="t">Build</span><span class="who">AI, human review</span></button></li>
+      <li class="stage" role="presentation"><button role="tab" id="tab-3" aria-selected="false" aria-controls="panel" data-i="3"><span class="n">Stage 4</span><span class="t">Launch</span><span class="who">AI, human sign-off</span></button></li>
+      <li class="stage" role="presentation"><button role="tab" id="tab-4" aria-selected="false" aria-controls="panel" data-i="4"><span class="n">Stage 5</span><span class="t">Run</span><span class="who">AI, humans by exception</span></button></li>
+    </ol>
+    <div class="detail" id="panel" role="tabpanel" aria-labelledby="tab-0">
+      <div>
+        <h3 id="d-title">Scan</h3>
+        <p id="d-body">Agents read markets, forums, search trends, app-store reviews and public filings looking for demand that nobody is serving well. Every candidate is logged with the evidence that surfaced it.</p>
+      </div>
+      <dl class="meta">
+        <dt>Output</dt><dd id="d-out">A ranked list of opportunities with sources attached</dd>
+        <dt>Where people come in</dt><dd id="d-human">Setting the hunting grounds: sectors, geographies, things we will not do</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="human">
+  <div class="wrap two">
+    <div>
+      <p class="kicker">What stays human</p>
+      <h2>Minimal human-in-the-loop is not the same as none.</h2>
+    </div>
+    <div>
+      <p class="prose">Automation does the work. A small number of decisions stay with people, every time, because they carry consequences a model should not own.</p>
+      <ul class="human">
+        <li><b>Direction</b><span>Which markets we hunt in, and which we leave alone.</span></li>
+        <li><b>The go/no-go</b><span>No venture launches without a person reading the evidence and saying yes.</span></li>
+        <li><b>Money</b><span>Spending limits, pricing floors and where revenue goes are set by hand.</span></li>
+        <li><b>Law and ethics</b><span>Compliance, data handling and anything that touches someone's wellbeing.</span></li>
+        <li><b>The off switch</b><span>Every venture can be paused by one person in one step.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="ventures">
+  <div class="wrap">
+    <p class="kicker">Ventures</p>
+    <h2 class="measure">The portfolio, as it stands today.</h2>
+    <p class="prose measure" style="margin-top:1rem">We publish each venture here once it is live and earning. Until then, this board shows where we are.</p>
+    <div class="board">
+      <div class="row"><span>Venture</span><span>What it is</span><span>Status</span></div>
+      <div class="row"><span class="name">Opportunity scan</span><span class="desc">The pipeline that feeds everything else. Running against UK and European markets first.</span><span class="chip live"><i></i>Running</span></div>
+      <div class="row"><span class="name">Venture 01</span><span class="desc">Passed validation. In build. Named and described here when it launches.</span><span class="chip"><i></i>In build</span></div>
+      <div class="row"><span class="name">Venture 02</span><span class="desc">Shortlisted from the scan. Awaiting a go/no-go.</span><span class="chip wait"><i></i>Validating</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap two">
+    <div>
+      <p class="kicker" style="color:#E4E2CD">Contact</p>
+      <h2>Talk to us.</h2>
+      <p style="margin-top:1rem">If you have spotted a gap, want to partner on a venture, or just want to follow along, email is the way in. A person reads it.</p>
+      <div class="mail">
+        <code id="addr">hello@unconventionalists.com</code>
+        <button type="button" id="copy">Copy address</button>
+      </div>
+      <p class="quiet">Unconventionalists Ltd, Hampshire, United Kingdom.</p>
+    </div>
+    <svg viewBox="0 0 240 240" style="width:min(260px,60%);margin-inline:auto;display:block;color:#fff" aria-hidden="true"><use href="#mark"/></svg>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Unconventionalists. All rights reserved.</span>
+    <span><a href="https://unconventionalists.com">unconventionalists.com</a> &nbsp;&middot;&nbsp; <a href="https://unconventionalists.co.uk">unconventionalists.co.uk</a></span>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite">Copied</div>
+
+<script>
+(function(){
+  var stages=[
+    {t:"Scan",b:"Agents read markets, forums, search trends, app-store reviews and public filings looking for demand that nobody is serving well. Every candidate is logged with the evidence that surfaced it.",o:"A ranked list of opportunities with sources attached",h:"Setting the hunting grounds: sectors, geographies, things we will not do"},
+    {t:"Validate",b:"Each shortlisted idea gets a landing page, a price and a small amount of traffic. Real sign-ups and real willingness to pay decide what goes forward, not opinions.",o:"A one-page case: demand, unit economics, risks, and a recommendation",h:"The go/no-go. A person reads the case and decides"},
+    {t:"Build",b:"The product, the website, payments, onboarding, support and bookkeeping are assembled from a shared set of components, so each venture starts with the plumbing already working.",o:"A working business in a staging environment, with a monitoring dashboard",h:"Reviewing what customers will see, and anything that touches law or money"},
+    {t:"Launch",b:"Marketing, outreach and listings go live together. Early customer conversations are handled by agents, with transcripts kept so people can audit how it went.",o:"A live venture with its first paying customers",h:"Final sign-off before anything is public"},
+    {t:"Run",b:"Agents handle support, content, pricing experiments and routine finance. Anomalies, complaints and anything outside a set tolerance are escalated to a person.",o:"Monthly revenue, a short exceptions report, and a decision: keep, change or shut down",h:"Reading the exceptions report and making the quarterly call"}
+  ];
+  var tabs=document.querySelectorAll('.stage button');
+  var panel=document.getElementById('panel');
+  function show(i){
+    tabs.forEach(function(b,j){b.setAttribute('aria-selected',j===i?'true':'false');b.tabIndex=j===i?0:-1;});
+    panel.setAttribute('aria-labelledby','tab-'+i);
+    document.getElementById('d-title').textContent=stages[i].t;
+    document.getElementById('d-body').textContent=stages[i].b;
+    document.getElementById('d-out').textContent=stages[i].o;
+    document.getElementById('d-human').textContent=stages[i].h;
+  }
+  tabs.forEach(function(b){
+    b.addEventListener('click',function(){show(+b.dataset.i)});
+    b.addEventListener('keydown',function(e){
+      var i=+b.dataset.i;
+      if(e.key==='ArrowRight'){i=(i+1)%tabs.length}else if(e.key==='ArrowLeft'){i=(i+tabs.length-1)%tabs.length}else return;
+      e.preventDefault();show(i);tabs[i].focus();
+    });
+  });
+  show(0);
+  var copy=document.getElementById('copy'),toast=document.getElementById('toast'),addr=document.getElementById('addr');
+  copy.addEventListener('click',function(){
+    var done=function(){toast.classList.add('on');setTimeout(function(){toast.classList.remove('on')},1600)};
+    var sel=function(){var r=document.createRange();r.selectNodeContents(addr);var s=getSelection();s.removeAllRanges();s.addRange(r);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(addr.textContent).then(done,sel)}else sel();
+  });
+})();
+</script>
+</body>
+</html>
