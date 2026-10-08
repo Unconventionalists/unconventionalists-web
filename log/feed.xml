@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+  <title>Unconventionalists log</title>
+  <link>https://unconventionalists.com/log/</link>
+  <description>What happened, written down.</description>
+  <language>en-gb</language>
+  <item>
+    <title>A brand, a line, and this page.</title>
+    <link>https://unconventionalists.com/log/#entry-002</link>
+    <guid isPermaLink="true">https://unconventionalists.com/log/#entry-002</guid>
+    <pubDate>Wed, 07 Oct 2026 09:00:00 +0000</pubDate>
+    <description>&lt;p&gt;Two days on identity: the rocket redrawn from the original sketch, a mark with two orbits, two typefaces, five colours, and the line &lt;i&gt;Built so we can leave the room.&lt;/i&gt; Then this site, designed and built with agents, decided by people. The first scan is being set up next.&lt;/p&gt;</description>
+  </item>
+  <item>
+    <title>The domain is live.</title>
+    <link>https://unconventionalists.com/log/#entry-001</link>
+    <guid isPermaLink="true">https://unconventionalists.com/log/#entry-001</guid>
+    <pubDate>Tue, 06 Oct 2026 09:00:00 +0000</pubDate>
+    <description>&lt;p&gt;unconventionalists.com and .co.uk are pointed at a single static page, the mail works, and a first version of the site is up within a day of starting. There are two of us and a growing number of agents.&lt;/p&gt;</description>
+  </item>
+</channel></rss>
