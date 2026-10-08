@@ -30,7 +30,7 @@ a{color:inherit;text-decoration:none}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:var(--hdr)}
 .brand{display:flex;align-items:center;gap:.65rem;font-family:var(--serif);font-size:1.15rem;line-height:1}
 .brand svg{width:1.1rem;height:2.4rem;color:var(--butter);display:block}
-.nav{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0;font-weight:500;font-size:.92rem}
+.nav{display:flex;gap:2.4rem;list-style:none;margin:0 2rem;padding:0;font-weight:500;font-size:.95rem}
 .nav a{position:relative;display:inline-block;padding:.3rem 0}
 .nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--butter);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.6,0,.2,1)}
 .nav a:hover::after,.nav a.active::after{transform:scaleX(1)}
@@ -51,7 +51,6 @@ a{color:inherit;text-decoration:none}
 .hero.launched .cue{opacity:0;pointer-events:none}
 .scene{position:relative;align-self:stretch;min-height:420px}
 .scene svg{position:absolute;inset:auto 0 0 0;width:100%;height:100%;overflow:visible;display:block;color:var(--butter)}
-.scene .ship{cursor:pointer}
 .scene .smoke circle{opacity:0;transform-box:fill-box;transform-origin:center;color:var(--paper)}
 .scene .jetship{opacity:0;transform-box:fill-box;transform-origin:50% 0}
 @media (min-width:1500px){.scene svg{width:128%;left:auto;right:-10%}}
@@ -67,18 +66,10 @@ a{color:inherit;text-decoration:none}
   .scene svg{width:105%}
 }
 @media (prefers-reduced-motion:no-preference){
-  .scene.play .ship{animation:lift 3.2s cubic-bezier(.65,0,.3,1) forwards}
-  .scene.play .ship .flame{transform-origin:100px 364px;animation:flame 3.2s ease-in-out forwards}
-  .scene.play .jetship{animation:jetship 3.2s ease-in-out forwards}
-  .scene.play .smoke circle{animation:roll 3.6s cubic-bezier(.2,.6,.3,1) forwards}
-  .scene.play .smoke .L{--dir:-1}.scene.play .smoke .R{--dir:1}
-  .scene.play .smoke .d1{animation-delay:.2s}.scene.play .smoke .d2{animation-delay:.3s}.scene.play .smoke .d3{animation-delay:.4s}.scene.play .smoke .d4{animation-delay:.5s}.scene.play .smoke .d5{animation-delay:.6s}
-  .scene .ship .flame{transform-origin:100px 364px;animation:idle 1.4s ease-in-out infinite alternate}
-  @keyframes idle{from{transform:scaleY(.92)}to{transform:scaleY(1.08)}}
-  @keyframes lift{0%,7%{transform:translateY(0)}100%{transform:translateY(-1500px)}}
-  @keyframes flame{0%{transform:scaleY(.8)}7%{transform:scaleY(1.4)}100%{transform:scaleY(2);opacity:0}}
-  @keyframes jetship{0%,5%{opacity:0;transform:scaleY(.2)}14%{opacity:1;transform:scaleY(1)}70%{opacity:.9;transform:scaleY(1.4)}100%{opacity:0;transform:scaleY(1.8)}}
-  @keyframes roll{0%{opacity:0;transform:translateX(0) scale(.2)}18%{opacity:.95}100%{opacity:0;transform:translateX(calc(var(--dir) * var(--dx,160px))) translateY(var(--dy,-10px)) scale(var(--sc,1.6))}}
+  .scene .ship{will-change:transform}
+  .scene .ship .flame{transform-box:fill-box;transform-origin:50% 0;transform:scaleY(0);opacity:0}
+  .scene.lit .ship .flame{animation:flick .9s ease-in-out infinite alternate}
+  @keyframes flick{from{transform:scaleY(var(--fs,1))}to{transform:scaleY(calc(var(--fs,1) * 1.12))}}
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
   .reveal.in{opacity:1;transform:none}
 }
@@ -254,6 +245,11 @@ section.lit .eyebrow .num span{color:var(--bg)}
 <path d="M64.0 129.4 L61.3 147.3 L59.4 165.9 L58.2 185.1 L57.9 204.9 L58.1 219.5 L58.6 231.1 L59.4 242.4 L60.4 253.3 L61.6 263.8 L63.0 273.9 L64.6 283.6 L66.3 292.9 L68.1 301.7 L70.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/><path d="M136.0 129.4 L138.7 147.3 L140.6 165.9 L141.8 185.1 L142.1 204.9 L141.9 219.5 L141.4 231.1 L140.6 242.4 L139.6 253.3 L138.4 263.8 L137.0 273.9 L135.4 283.6 L133.7 292.9 L131.9 301.7 L130.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/>
 <path d="M100 236 C90 268 86 316 100 358 C114 316 110 268 100 236 Z"/><path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/><path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/><path d="M66 334 L58 352 L89 352 M111 352 L142 352 L134 334"/>
 <g class="flame"><path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/><path d="M90 366 C88 390 95 404 100 412 C105 404 112 390 110 366" stroke-width="4"/></g></g></symbol>
+<symbol id="e11nf" viewBox="0 0 200 440"><g fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+<path d="M66 334 C58 305 49 265 48 215 C46 130 66 60 100 12 C134 60 154 130 152 215 C151 265 142 305 134 334"/><path d="M66 334 L88 334 M112 334 L134 334"/><path d="M58 118 C79 129 121 129 142 118"/><path d="M63 104 C81 114 119 114 137 104" stroke-dasharray="9 8" stroke-width="3.5"/><circle cx="100" cy="174" r="24" stroke-width="6"/>
+<path d="M64.0 129.4 L61.3 147.3 L59.4 165.9 L58.2 185.1 L57.9 204.9 L58.1 219.5 L58.6 231.1 L59.4 242.4 L60.4 253.3 L61.6 263.8 L63.0 273.9 L64.6 283.6 L66.3 292.9 L68.1 301.7 L70.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/><path d="M136.0 129.4 L138.7 147.3 L140.6 165.9 L141.8 185.1 L142.1 204.9 L141.9 219.5 L141.4 231.1 L140.6 242.4 L139.6 253.3 L138.4 263.8 L137.0 273.9 L135.4 283.6 L133.7 292.9 L131.9 301.7 L130.0 310.2" stroke-dasharray="12 9" stroke-width="3.5"/>
+<path d="M100 236 C90 268 86 316 100 358 C114 316 110 268 100 236 Z"/><path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/><path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/><path d="M66 334 L58 352 L89 352 M111 352 L142 352 L134 334"/>
+</g></symbol>
 <symbol id="e11halo" viewBox="0 0 200 440"><g fill="currentColor" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M100 12 C66 60 46 130 48 215 C49 265 58 305 66 334 L134 334 C142 305 151 265 152 215 C154 130 134 60 100 12 Z"/><path d="M48.9 236 C30 270 14 312 16 360 C32 342 50 334 66 334"/><path d="M151.1 236 C170 270 186 312 184 360 C168 342 150 334 134 334"/><path d="M66 334 L58 352 L142 352 L134 334"/><path d="M78 366 C72 402 88 424 100 438 C112 424 128 402 122 366"/></g></symbol>
 <symbol id="gear12" viewBox="0 0 240 240"><path fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" d="M218.0 120.0 L217.5 130.2 L232.8 136.7 L226.0 162.0 L209.5 159.9 L204.9 169.0 L199.3 177.6 L209.3 190.8 L190.8 209.3 L177.6 199.3 L169.0 204.9 L159.9 209.5 L162.0 226.0 L136.7 232.8 L130.2 217.5 L120.0 218.0 L109.8 217.5 L103.3 232.8 L78.0 226.0 L80.1 209.5 L71.0 204.9 L62.4 199.3 L49.2 209.3 L30.7 190.8 L40.7 177.6 L35.1 169.0 L30.5 159.9 L14.0 162.0 L7.2 136.7 L22.5 130.2 L22.0 120.0 L22.5 109.8 L7.2 103.3 L14.0 78.0 L30.5 80.1 L35.1 71.0 L40.7 62.4 L30.7 49.2 L49.2 30.7 L62.4 40.7 L71.0 35.1 L80.1 30.5 L78.0 14.0 L103.3 7.2 L109.8 22.5 L120.0 22.0 L130.2 22.5 L136.7 7.2 L162.0 14.0 L159.9 30.5 L169.0 35.1 L177.6 40.7 L190.8 30.7 L209.3 49.2 L199.3 62.4 L204.9 71.0 L209.5 80.1 L226.0 78.0 L232.8 103.3 L217.5 109.8 Z"/></symbol>
 <symbol id="e11m" viewBox="0 0 200 440"><g fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
