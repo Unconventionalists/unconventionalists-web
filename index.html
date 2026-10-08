@@ -67,7 +67,7 @@ a{color:inherit;text-decoration:none}
 .scene svg{position:absolute;inset:auto 0 0 0;width:100%;height:100%;overflow:visible;display:block;color:var(--butter)}
 .scene .smoke circle{opacity:0;transform-box:fill-box;transform-origin:center;color:var(--paper)}
 .scene .jetship{opacity:0;transform-box:fill-box;transform-origin:50% 0}
-@media (min-width:1500px){.scene svg{width:128%;left:auto;right:-10%}}
+@media (min-width:1500px){.scene svg{width:112%;left:auto;right:-6%}}
 @media (max-width:860px){
   .hero .wrap{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;gap:0;padding-top:2rem;min-height:min(calc(100svh - var(--hdr)),820px)}
   .hero .t1{font-size:clamp(2.4rem,11vw,3.6rem);max-width:12ch}
@@ -284,7 +284,7 @@ section.lit .eyebrow .num span{color:var(--bg)}
     <a class="cue" href="#why" id="cue"><span class="ring"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v12M3 9l5 5 5-5"/></svg></span>Scroll to launch</a>
     <div class="scene" id="scene" aria-hidden="true">
       <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMax meet">
-        <g class="world" id="world" transform="translate(-330 -560) scale(2.4)">
+        <g class="world" id="world" transform="translate(-714 -1040) scale(3.6)">
           <g class="smoke" fill="none" stroke="currentColor" stroke-linecap="round">
             <circle class="L d1" cx="304" cy="392" r="34" stroke-width="4" stroke-dasharray="11 8" style="--dx:80px;--dy:-30px;--sc:2"/><circle class="R d1" cx="336" cy="392" r="34" stroke-width="4" stroke-dasharray="11 8" style="--dx:80px;--dy:-30px;--sc:2"/>
             <circle class="L d2" cx="296" cy="398" r="26" stroke-width="3.5" stroke-dasharray="9 7" style="--dx:170px;--dy:-14px;--sc:1.9"/><circle class="R d2" cx="344" cy="398" r="26" stroke-width="3.5" stroke-dasharray="9 7" style="--dx:170px;--dy:-14px;--sc:1.9"/>
@@ -433,7 +433,7 @@ section.lit .eyebrow .num span{color:var(--bg)}
   function applyScrub(p){
     /* p 0..1 : 0 = standing on the pad, 1 = gone */
     var lift=Math.pow(p,1.35);
-    ship.style.transform='translateY('+(-1500*lift).toFixed(1)+'px)';
+    var ws=matchMedia('(max-width:860px)').matches?1.8:3.6; ship.style.transform='translateY('+(-(1400/ws)*lift).toFixed(1)+'px)';
     var f=clamp01(p/0.08);                       /* ignition in the first 8% */
     scene.style.setProperty('--fs',(0.6+0.9*f).toFixed(3));
     scene.classList.toggle('lit',p>0.01);
@@ -457,7 +457,7 @@ section.lit .eyebrow .num span{color:var(--bg)}
   function rel(r,m){return {x:r.left-m.left+r.width/2,y:r.top-m.top+r.height/2}}
   function layout(){
     var mob=matchMedia('(max-width:860px)').matches;
-    document.getElementById('world').setAttribute('transform', mob ? 'translate(-256 -320) scale(1.8)' : 'translate(-330 -560) scale(2.4)');
+    document.getElementById('world').setAttribute('transform', mob ? 'translate(-256 -320) scale(1.8)' : 'translate(-714 -1040) scale(3.6)');
     var m=mainEl.getBoundingClientRect(); var W=mainEl.offsetWidth, H=mainEl.offsetHeight; mainTop=m.top+scrollY;
     trail.setAttribute('viewBox','0 0 '+W+' '+H);
     segsEl.innerHTML=''; segs=[];
