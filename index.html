@@ -72,7 +72,7 @@ a{color:inherit;text-decoration:none}
   .hero .wrap{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;gap:0;padding-top:2rem;min-height:min(calc(100svh - var(--hdr)),820px)}
   .hero .t1{font-size:clamp(2.4rem,11vw,3.6rem);max-width:12ch}
   .cue{position:static;margin-top:1.6rem}
-  .scene{min-height:min(38svh,300px);width:100%}
+  .scene{min-height:min(44svh,400px);width:100%}
   .scene svg{left:50%;right:auto;width:150%;transform:translateX(-50%)}
 }
 @media (min-width:600px) and (max-width:860px){
@@ -433,7 +433,7 @@ section.lit .eyebrow .num span{color:var(--bg)}
   function applyScrub(p){
     /* p 0..1 : 0 = standing on the pad, 1 = gone */
     var lift=Math.pow(p,1.35);
-    var ws=matchMedia('(max-width:860px)').matches?1.8:3.6; ship.style.transform='translateY('+(-(1400/ws)*lift).toFixed(1)+'px)';
+    var ws=matchMedia('(max-width:860px)').matches?2.7:3.6; ship.style.transform='translateY('+(-(1400/ws)*lift).toFixed(1)+'px)';
     var f=clamp01(p/0.08);                       /* ignition in the first 8% */
     scene.style.setProperty('--fs',(0.6+0.9*f).toFixed(3));
     scene.classList.toggle('lit',p>0.01);
@@ -457,7 +457,7 @@ section.lit .eyebrow .num span{color:var(--bg)}
   function rel(r,m){return {x:r.left-m.left+r.width/2,y:r.top-m.top+r.height/2}}
   function layout(){
     var mob=matchMedia('(max-width:860px)').matches;
-    document.getElementById('world').setAttribute('transform', mob ? 'translate(-256 -320) scale(1.8)' : 'translate(-714 -1040) scale(3.6)');
+    document.getElementById('world').setAttribute('transform', mob ? 'translate(-544 -680) scale(2.7)' : 'translate(-714 -1040) scale(3.6)');
     var m=mainEl.getBoundingClientRect(); var W=mainEl.offsetWidth, H=mainEl.offsetHeight; mainTop=m.top+scrollY;
     trail.setAttribute('viewBox','0 0 '+W+' '+H);
     segsEl.innerHTML=''; segs=[];
